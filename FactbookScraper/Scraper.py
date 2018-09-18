@@ -2,7 +2,7 @@ import json
 
 
 def main():
-    with open('data/factbook.json') as f:
+    with open('data/factbook.json', encoding='utf-8') as f:
 
         data = json.load(f)
 
@@ -24,6 +24,11 @@ def main():
 def stage1(raw):
     country = raw["data"]
     economy = country["economy"]
+
+    try:
+        continent = country["geography"]["map_references"]
+    except KeyError:
+        return None
 
     try:
         gdp = economy["gdp"]
@@ -95,9 +100,21 @@ def stage1(raw):
     except KeyError:
         growth_rate = None
 
+    try:
+        population_data = country["people"]["population"]
+
+        population = {
+            "total": population_data["total"],
+            "global_rank": population_data["global_rank"]
+        }
+    except KeyError:
+        population = None
+
     fields = {
         "name": country['name'],
+        "continent": continent,
         "data": {
+            "population": population,
             "ppp": ppp,
             "growth_rate": growth_rate,
             "per_capita_ppp": per_capita_ppp,
@@ -184,11 +201,11 @@ def stage2(raw):
     except TypeError:
         expenditure = None
 
-
-
     fields = {
         "name": raw["name"],
+        "region": raw["continent"],
         "data": {
+            "population": data["population"],
             "ppp": parse_value(data["ppp"]),
             "growth_rate": parse_value(data["growth_rate"]),
             "per_capita_ppp": parse_value(data["per_capita_ppp"]),
