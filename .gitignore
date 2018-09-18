@@ -128,7 +128,20 @@ dmypy.json
 pyvenv.cfg
 pip-selfcheck.json
 
+# End of https://www.gitignore.io/api/python
+
 .directory
 .idea/
 
-# End of https://www.gitignore.io/api/python
+# dependencies
+VisualisationSystem/node_modules
+
+# testing
+VisualisationSystem/coverage
+
+# production
+VisualisationSystem/build
+
+# misc
+VisualisationSystem/.DS_Store
+VisualisationSystem/.env
