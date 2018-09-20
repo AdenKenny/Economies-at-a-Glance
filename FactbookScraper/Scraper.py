@@ -267,5 +267,24 @@ def parse_value(data):
 
     return fields
 
+def coords:
+    with open('data/custom50.json', encoding='utf-8') as f:
+    data = json.load(f)
+
+    for e in data["features"]:
+        try:
+            coords = e["geometry"]["coordinates"]
+            for coord in coords:
+                for coord2 in coord:
+                    for coord3 in coord2:
+                        coord3[0] = "{0:.2f}".format(coord3[0])
+                        coord3[1] = "{0:.2f}".format(coord3[1])
+
+        except TypeError:
+            continue
+
+    with open('data/coordsData.json', 'w') as outfile:
+        json.dump(data, outfile)
+
 
 main()
