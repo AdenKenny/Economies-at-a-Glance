@@ -15,8 +15,6 @@ export default class Home extends Component<{db: DatabaseModule}> {
 
 
     render() {
-
-
         return(
             <div>
                <button onClick={this.testData}> Test data </button>
@@ -27,5 +25,4 @@ export default class Home extends Component<{db: DatabaseModule}> {
     testData = () => {
         this.db.readFromDb();
     }
-
 }
