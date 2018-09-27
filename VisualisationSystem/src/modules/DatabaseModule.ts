@@ -17,7 +17,7 @@ class DatabaseModule {
             projectId: "swen422-a2",
             storageBucket: "swen422-a2.appspot.com",
             messagingSenderId: "258004501195"
-                };
+        };
 
         if (!firebase.apps.length) {
             firebase.initializeApp(config);
