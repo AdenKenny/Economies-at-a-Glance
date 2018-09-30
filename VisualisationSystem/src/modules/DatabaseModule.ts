@@ -2,8 +2,8 @@
 
 import * as firebase from 'firebase';
 
-import Country from '../Util/country';
-import CountryBuilder from '../Util/countryBuilder';
+import Country from '../util/country';
+import CountryBuilder from '../util/countryBuilder';
 
 class DatabaseModule {
 
@@ -28,6 +28,9 @@ class DatabaseModule {
 
 
     readFromDb() {
+        
+        Object.freeze(CountryBuilder.notToCapitalise);
+        
         return this.database.ref().once('value').then(function (snapshot) {
             const countries: Map<string | null, Country> = new Map();
             snapshot.forEach(function (country) {

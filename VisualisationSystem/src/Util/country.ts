@@ -1,6 +1,6 @@
-import CountryBuilder from "./countryBuilder";
-
 ;"use strict";
+
+import CountryBuilder from "./countryBuilder";
 
 class Country {
     
