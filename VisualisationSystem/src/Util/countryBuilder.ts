@@ -75,7 +75,7 @@ class CountryBuilder {
             };
         }
 
-        catch(error) {
+        catch (error) {
 
         }
 
@@ -86,20 +86,19 @@ class CountryBuilder {
 
     strToNumber = (str: string): number => {
 
-            if (str !== undefined) {
-                if (str.indexOf('.') > -1) { // We need to parse this to a float.
-    
-                    const float = Number.parseFloat(str);
-        
-                    return (Math.round(float * 100) / 100);
-                }
-        
-                else {
-                    return Number.parseInt(str);
-                }
-            }    
-        
-        
+        if (str !== undefined) {
+            if (str.indexOf('.') > -1) { // We need to parse this to a float.
+
+                const float = Number.parseFloat(str);
+
+                return (Math.round(float * 100) / 100);
+            }
+
+            else {
+                return Number.parseInt(str);
+            }
+        }
+
         return NaN;
     }
 

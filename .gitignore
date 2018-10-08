@@ -133,6 +133,9 @@ pip-selfcheck.json
 .directory
 .idea/
 
+FactbookScraper.idea/
+
+
 # dependencies
 VisualisationSystem/node_modules
 
