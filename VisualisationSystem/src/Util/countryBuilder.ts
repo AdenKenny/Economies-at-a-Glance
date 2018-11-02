@@ -143,7 +143,7 @@ class CountryBuilder {
         this.mTry(() => {
             if (this.buildGdpBySector !== undefined) {
                 
-                const map = new Map<string, number>();
+                const map: Map<string, number> = new Map<string, number>();
 
                 map["agriculture"] = this.buildGdpBySector.agriculture;
                 map["industry"] = this.buildGdpBySector.industry;
@@ -180,9 +180,9 @@ class CountryBuilder {
             years: new Map()
         };
 
-        const keys = Object.keys(proprety);
+        const keys: string[] = Object.keys(proprety);
 
-        const mapOfVals = new Map<number, number>();
+        const mapOfVals: Map<number, number> = new Map<number, number>();
 
         keys.forEach(k => {
             if (k !== "rank") {
@@ -210,7 +210,7 @@ class CountryBuilder {
         if (str !== undefined) {
             if (str.indexOf('.') > -1) { // We need to parse this to a float.
 
-                const float = Number.parseFloat(str);
+                const float: number = Number.parseFloat(str);
 
                 return (Math.round(float * 100) / 100);
             }
