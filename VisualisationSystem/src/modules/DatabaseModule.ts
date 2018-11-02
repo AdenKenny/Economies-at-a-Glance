@@ -1,3 +1,4 @@
+;
 "use strict";
 
 import * as firebase from 'firebase';
@@ -36,7 +37,7 @@ class DatabaseModule {
             snapshot.forEach(function (country) {
                 countries.set(country.key, new CountryBuilder(country.key, country.val()).build());
             });
-            //console.log(countries);
+            console.log(countries);
         });
     }
 
