@@ -1,8 +1,9 @@
 import * as React from 'react';
 import './App.css';
 
-import DatabaseModule from './modules/DatabaseModule';
-import Home from './pages/home';
+import DatabaseModule from './Modules/DatabaseModule';
+import BarChart from './Components/BarChart';
+import Home from './Pages/Home';
 import logo from './logo.svg';
 
 class App extends React.Component {
@@ -22,6 +23,7 @@ class App extends React.Component {
       </div>
     );
   }
+  
 }
 
 export default App;
