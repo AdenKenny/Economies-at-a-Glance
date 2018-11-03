@@ -3,8 +3,8 @@
 
 import * as firebase from 'firebase';
 
-import Country from '../util/country';
-import CountryBuilder from '../util/countryBuilder';
+import Country from '../Util/country';
+import CountryBuilder from '../Util/countryBuilder';
 
 class DatabaseModule {
 

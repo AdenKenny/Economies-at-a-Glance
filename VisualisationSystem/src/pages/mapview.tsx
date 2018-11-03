@@ -5,7 +5,7 @@ import * as React from "react";
 import { Component } from "react";
 import DatabaseModule from "../modules/DatabaseModule";
 
-export default class Home extends Component<{db: DatabaseModule}> {
+export default class MapView extends Component<{db: DatabaseModule}> {
 
     private db: DatabaseModule;
 
@@ -18,7 +18,7 @@ export default class Home extends Component<{db: DatabaseModule}> {
     render() {
         return(
             <div>
-               <button onClick={this.testData}> Test data </button>
+               {/* <button onClick={this.testData}> Test data </button> */}
             </div>
         );
     }
