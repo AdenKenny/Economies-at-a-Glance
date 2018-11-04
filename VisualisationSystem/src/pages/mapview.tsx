@@ -5,13 +5,12 @@ import * as React from "react";
 import { Component } from "react";
 import DatabaseModule from "../modules/DatabaseModule";
 
-export default class MapView extends Component<{db: DatabaseModule}> {
+export default class MapView extends Component<{}> {
 
     private db: DatabaseModule;
 
-     constructor(props: Readonly<{ db: DatabaseModule; }>) {
+     constructor(props: Readonly<{ }>) {
          super(props);
-         this.db = this.props.db;
     }
 
 

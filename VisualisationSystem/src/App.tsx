@@ -20,46 +20,120 @@ const options2 = [
   { value: 'BMI', label: 'Big Mac Index' },
   { value: 'GDP', label: 'GDP' }
 ];
-var mapView:boolean = true;
 
-class App extends React.Component {
+const countries:any = [];
 
-  selectedOption: null
-  // isMapView: boolean = true
-  // const mapView = true;
+const view = [
+  { value: 'Graph', label: 'Graph View' },
+  { value: 'Map', label: 'Map View' },
+];
+
+const countryList = [];
 
 
-  handleChange = (selectedOption: any) => {
-    this.setState({ selectedOption });
-    console.log(`Option selected:`, selectedOption);
+
+class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
+
+  private db: DatabaseModule;
+  private superData: Map<string | null, any>;
+
+  private graphClass: any;
+
+  private graphView: JSX.Element;
+  private mapView: JSX.Element;
+
+
+
+  constructor(props: any, state: any) {
+    super(props, state);
+    this.db = new DatabaseModule();
+    this.superData = new Map<string | null, any>();
+
+    this.mapView = <MapView />;
+    
+    this.graphView = <GraphView countries = {countries} ref={(child) => {this.graphClass = child}}> </GraphView>;
+    
+
+    let count = 0;
+    // this.superData.forEach((name, info) => {
+    //   let countryName = name.name;
+    //   countryValue[count] = (name.population != null ? name.population.total : 0);
+    //   countryInfo[count] = [countryName, countryValue[count]]; 
+    //   count++;
+    // })
+
+
+    this.state = {
+      view: this.graphView,
+      dataLoaded: false
+
+    };
+
+    this.changeView = this.changeView.bind(this);
   }
 
-  private changeView(){
-    console.log(mapView);
-     mapView= !mapView;
+  componentDidMount() {
+    this.db.readFromDb().then(Country => {
+      this.superData = Country;
+      this.superData.forEach((key, value)=>{
+        countries.push({value: value, label: value})
+      });
+      this.setState({
+          dataLoaded: true
+      });
+      this.graphClass.setData(this.superData);
+    });
   }
-  
+
+
+  // handleChange = (selectedOption: any) => {
+  //   this.setState({ selectedOption });
+  //   console.log(`Option selected:`, selectedOption);
+  // }
+
+  private changeYear(value: any) {
+
+  }
+
+  private changeValue(value: any) {
+
+  }
+
+  private changeView(value: { value: string, label: string }) {
+    if (value.label === 'Map View') {
+      this.setState({ view: this.mapView })
+    }
+    else if (value.label === 'Graph View') {
+      this.setState({ view: this.graphView })
+    }
+  }
+
+  shouldComponentUpdate() {
+    if (this.state.dataLoaded) {
+        return false;
+    }
+
+    return true;
+}
+
+
   public render() {
 
-    const db = new DatabaseModule();
- 
     return (
       <div className="App">
         <header className="App-header">
           <h1 className="App-title">Economies at a Glance</h1>
           <div className="selectDiv">
-            <Select className="select" placeholder="Select Year" options={options1} value={this.selectedOption} />
-            <Select className="select" placeholder="Select Value" options={options2} value={this.selectedOption} />
-            <Button variant="contained" color="primary" className="b" onClick = {this.changeView}>
-              {mapView? "GRAPH VIEW": "MAP VIEW"}
-            </Button>
+            <Select className="select" placeholder="Select Year" options={options1} onChange={(val) => this.changeYear(val)} />
+            <Select className="select" placeholder="Select Value" options={options2} onChange={(val) => this.changeValue(val)} />
+            <Select className="select" placeholder="Select View" options={view} onChange={(val: { value: string, label: string }) => this.changeView(val)} />
           </div>
 
         </header>
-        <body>
-          <GraphView db={db}> </GraphView>
-        </body>
-      </div> 
+        {
+          this.state.dataLoaded ? this.state.view : <div></div>
+        }
+      </div>
     );
   }
 }

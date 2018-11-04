@@ -28,17 +28,20 @@ class DatabaseModule {
     }
 
 
-    readFromDb() {
-        
+    readFromDb(): Promise<Map<string|null, any>> {
+        console.log("called");
+
         Object.freeze(CountryBuilder.notToCapitalise);
+
+        const countries: Map<string|null, Country> = new Map();
         
         return this.database.ref().once('value').then(function (snapshot) {
-            const countries: Map<string | null, Country> = new Map();
+            
             snapshot.forEach(function (country) {
                 countries.set(country.key, new CountryBuilder(country.key, country.val()).build());
             });
-            console.log(countries);
-        });
+            return countries;
+        }).then((e)=>{return e});
     }
 
 }
