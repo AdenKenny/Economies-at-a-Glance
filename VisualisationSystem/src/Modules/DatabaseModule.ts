@@ -29,8 +29,6 @@ class DatabaseModule {
 
 
     readFromDb(): Promise<Map<string|null, any>> {
-        console.log("called");
-
         Object.freeze(CountryBuilder.notToCapitalise);
 
         const countries: Map<string|null, Country> = new Map();
