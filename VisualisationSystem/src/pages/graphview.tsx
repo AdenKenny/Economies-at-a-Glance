@@ -97,8 +97,9 @@ export default class GraphView extends Component<{ countries: [string, string] }
             //console.log(this.state.data.get(entry.value).$name);
             // this.graphedCountries = 
         }
-
-        this.forceUpdate();
+        this.setState({
+            
+        })
 
     }
 

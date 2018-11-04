@@ -6,7 +6,7 @@ import { Component } from 'react';
 import DatabaseModule from '../modules/DatabaseModule'
 
 class BarChart extends Component<{ countryList:any }> {
-
+  private svg: any;
   private mapElement: any;
   constructor(countryList:any) {
     super({countryList});
@@ -21,17 +21,19 @@ class BarChart extends Component<{ countryList:any }> {
   }
 
   renderMap() {
-
+    
   
     var countryInfo = this.props.countryList;
-
-    console.log(countryInfo);
 
     // Scale to the amount and size of data
     const width = window.screen.width / 2,
       height = window.screen.height / 2,
-      cellWidth = width * 0.95 / (countryInfo.length),
       cellHeight = height * 0.9 / this.highestValue(countryInfo);
+
+    let cellWidth = width * 0.95 / (countryInfo.length);
+    if (cellWidth > 80) {
+      cellWidth = 80;
+    }
 
     const margin = {
       top: 10,
@@ -39,6 +41,10 @@ class BarChart extends Component<{ countryList:any }> {
       left: 50,
       right: 10
     };
+
+    if (this.svg !== undefined) {
+      this.svg.remove();
+    }
 
     let svg = d3.select(this.mapElement)
       .append('svg')
@@ -65,7 +71,7 @@ class BarChart extends Component<{ countryList:any }> {
       .append('rect')
       .attr('class', 'rect-group')
       .attr('transform', function (item, index) {
-        return 'translate(' + (index * cellWidth + cellWidth) + ',' + (height - cellHeight * item[1]) + ')';
+        return 'translate(' + (index * cellWidth) + ',' + (height - cellHeight * item[1]) + ')';
       })
       .attr('fill', 'steelBlue')
       .attr('width', cellWidth - 1)
@@ -98,18 +104,19 @@ class BarChart extends Component<{ countryList:any }> {
     //   .attr("transform", "translate(" + (cellWidth * 2 - 2) + "," + (height / 2 + cellHeight * 1.5 + 5) + ")")
     //   .call(d3.axisBottom(x));
 
+    this.svg = svg;
+
 
 
   }
 
   highestValue = (input: any) => {
-    // let highest: number = -1;
-    // input.forEach(function (value) {
-    //   if (value > highest)
-    //     highest = value;
-    // });
+    let highest: number = -1;
+    input.forEach((entry:any) => {
+      highest  = entry [1]>highest ?entry [1]: highest;
+    });
 
-    return 100000000;
+    return highest;
   }
 
   static numberFormatter = (input: number) => {
