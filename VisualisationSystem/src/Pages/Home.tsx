@@ -40,6 +40,7 @@ export default class Home extends Component<{db: DatabaseModule}, any> {
             <div id="main">
                <button onClick={this.testData}> Test data </button>
                {
+
                     this.state.dataLoaded?
                     <BarChart db={this.superData}></BarChart>
                :

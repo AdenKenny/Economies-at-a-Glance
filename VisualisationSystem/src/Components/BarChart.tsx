@@ -25,6 +25,8 @@ class BarChart extends Component<{ db: Map<string | null, any> }> {
 
   renderMap() {
 
+    console.log(this.data['db'].get('new_zealand')); 
+
     const stuff: number[] = [1, 2, 3, 5, 4, 5, 2, 7, 3, 5, 7, 2, 1, 1];
 
     // Scale to the amount and size of data
