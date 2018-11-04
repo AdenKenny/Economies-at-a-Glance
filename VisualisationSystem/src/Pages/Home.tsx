@@ -11,7 +11,6 @@ export default class Home extends Component<{db: DatabaseModule}, any> {
     private db: DatabaseModule;
     private superData = new Map<string|null, any>();
 
-
     constructor(props: Readonly<{db: DatabaseModule}>) {
         super(props);
         this.db = this.props.db;
@@ -19,6 +18,14 @@ export default class Home extends Component<{db: DatabaseModule}, any> {
         this.state = {
             dataLoaded: false
         };
+    }
+
+    shouldComponentUpdate() {
+        if (this.state.dataLoaded) {
+            return false;
+        }
+
+        return true;
     }
 
     private dataLoaded = () => {
