@@ -7,6 +7,7 @@ def main():
         data = json.load(f)
 
         fields = {}
+        statsData = {}
 
         countries = data["countries"]
         countries.pop("world", None)
@@ -15,10 +16,29 @@ def main():
             val = stage1(countries[country])
             if val is not None:
                 print(val)
+
+                stat = {}
+
+                stat["name"] = val["name"]
+                stat["growth_rate"] = val["data"]["growth_rate"]#['2017']
+
+                try:
+                    stat["unemployment"] = val["data"]["unemployment"]
+
+                except KeyError:
+                    continue
+                except TypeError:
+                    continue
+                statsData[country] = stat
                 fields[country] = val
+
+                print(stat)
 
         with open('data/data.json', 'w') as outfile:
             json.dump(fields, outfile)
+
+        with open('data/statsData.json', 'w') as outfile:
+            json.dump(statsData, outfile)
 
 
 def stage1(raw):
@@ -76,7 +96,7 @@ def stage1(raw):
         ppp = None
 
     try:
-        per_capita_ppp = gdp["per_capita_ppp"]
+        per_capita_ppp = gdp["per_capita_purchasing_power_parity"]
     except KeyError:
         per_capita_ppp = None
 
@@ -267,6 +287,7 @@ def parse_value(data):
 
     return fields
 
+
 def coords():
     with open('data/custom50.json', encoding='utf-8') as f:
         data = json.load(f)
@@ -302,4 +323,4 @@ def coords():
             json.dump(countries, outfile)
 
 
-coords()
+main()
