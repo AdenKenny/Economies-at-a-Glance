@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/d3": "^5.0.1",
+    "d3": "^5.7.0",
     "firebase": "^5.5.1",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
