@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/d3": "^5.0.1",
-    "d3": "^5.7.0",
+    "@types/d3": "^3.5.34",
+    "d3": "3.5.5",
+    "datamaps": "^0.5.9",
     "firebase": "^5.5.1",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
-    "react-scripts-ts": "2.17.0"
+    "react-scripts-ts": "2.17.0",
+    "topojson": "^3.0.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",
