@@ -39,8 +39,8 @@ class DatabaseModule {
             snapshot.forEach(function (country) {
                 countries.set(country.key, new CountryBuilder(country.key, country.val()).build());
             });
-            console.log(countries);
-        }).then(()=>{return countries});
+            return countries;
+        }).then((e)=>{return e});
     }
 
 }

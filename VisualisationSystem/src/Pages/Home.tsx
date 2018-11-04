@@ -6,28 +6,49 @@ import { Component } from "react";
 import DatabaseModule from "../Modules/DatabaseModule";
 import BarChart from '../Components/BarChart';
 
-export default class Home extends Component<{db: DatabaseModule}> {
+export default class Home extends Component<{db: DatabaseModule}, any> {
 
     private db: DatabaseModule;
     private superData = new Map<string|null, any>();
 
+
     constructor(props: Readonly<{db: DatabaseModule}>) {
-         super(props);
-         this.db = this.props.db;
+        super(props);
+        this.db = this.props.db;
+
+        this.state = {
+            dataLoaded: false
+        };
     }
 
+    private dataLoaded = () => {
+        this.setState(
+            {
+                dataLoaded: true
+            }
+        );
+    }
 
     render() {
         this.db.readFromDb().then(Country => {
             this.superData = Country;
+        }).then(() => {
+            this.dataLoaded();
         });
 
         return(
-            <div>
-               <BarChart db={this.superData}></BarChart>
+            <div id="main">
                <button onClick={this.testData}> Test data </button>
+               {
+                    this.state.dataLoaded?
+                    <BarChart db={this.superData}></BarChart>
+               :
+               <div></div>
+            }
+
             </div>
-        );
+        ); 
+
     }
 
     testData = () => {

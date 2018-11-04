@@ -10,7 +10,7 @@ class App extends React.Component {
   public render() {
     
     const db = new DatabaseModule();
-    
+
     return (
       <div className="App">
         <header className="App-header">
