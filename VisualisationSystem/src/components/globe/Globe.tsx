@@ -13,9 +13,17 @@ class Globe extends Component<{data: any}> {
 
     do = (): void => {
 
+        const container: HTMLElement = document.getElementById('container');
+        
+        const nodes: NodeList = container.childNodes;
+
+        for (let i = nodes.length - 1; i >= 0; --i) {
+            container.removeChild(nodes[i]);
+        }
+
         const map = new DataMap(
             {
-                element: document.getElementById('container'), 
+                element: container, 
                 setProjection: () => {
                     const projection = d3.geo.equirectangular();
                     const path = d3.geo.path().projection(projection);
@@ -37,6 +45,10 @@ class Globe extends Component<{data: any}> {
     }
 
     componentDidMount() {
+        this.do();
+    }
+
+    componentDidUpdate() {
         this.do();
     }
 

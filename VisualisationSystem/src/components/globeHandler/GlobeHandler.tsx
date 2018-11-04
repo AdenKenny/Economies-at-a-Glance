@@ -8,7 +8,7 @@ import Globe from "../globe/Globe";
 import Country from "../../util/country";
 import App from "../../App";
 
-class GlobeHandler extends Component<{}> {
+class GlobeHandler extends Component<{ indicator: string }> {
 
     private abrevToCountry = {};
     private data;
@@ -16,7 +16,6 @@ class GlobeHandler extends Component<{}> {
     constructor(props) {
         super(props);
         this.loadData();
-        this.setData();
     }
 
     private loadData = () => {
@@ -30,32 +29,46 @@ class GlobeHandler extends Component<{}> {
     }
 
     setData = () => {
-        this.data = this.setRanges("growthRate", "rank", false);
 
-    }
+        this.data = {}
 
-    setRanges = (methodName: string, field: string, direction: boolean) => {
 
-        const data = {}
-        
-        const name: string = "$" + methodName;
+        let name: string;
+        let field: string;
+        let needsYear: boolean;
+        let direction: boolean;
+
+        switch (this.props.indicator) {
+            case 'ppp':
+                name = "$ppp";
+                field = "years";
+                needsYear = true;
+                direction = true;
+                break;
+            case 'unemployment':
+                name = "$unemployment";
+                field = "years";
+                needsYear = true;
+                direction = false;
+                break;
+            default:
+                console.log(this.props.indicator);
+        }
 
         const map: Map<string, any> = App.countryData;
 
-        const albania: number | any = map.get("albania")[name][field];
+        const albania: number | any = this.getValue(name, field, needsYear, map.get("albania"));
         let min: number = albania;
         let max: number = albania;
 
         Array.from(map.values()).forEach(e => {
-            
-            const obj = e[name];
 
-            if (obj === undefined) {
+            const val = this.getValue(name, field, needsYear, e);
+
+            if (val === undefined) {
                 return;
-            } 
-            
-            const val = obj[field];
-            
+            }
+
             if (val > max) {
                 max = val;
             }
@@ -63,7 +76,10 @@ class GlobeHandler extends Component<{}> {
             if (val < min) {
                 min = val;
             }
+
         });
+        console.log("Max: " + max);
+        console.log("Min: " + min)
 
         const range: number = max - min;
         const numberOfRanges: number = 7;
@@ -75,31 +91,44 @@ class GlobeHandler extends Component<{}> {
         }
 
         Array.from(map.values()).forEach(e => {
-            const obj = e[name];
+            const val = this.getValue(name, field, needsYear, e);
 
-            if (obj === undefined) {
+            if (val === undefined) {
                 return;
-            } 
-            const val = obj[field];
+            }
 
             for (let i = numberOfRanges - 1; i >= 0; i--) {
                 if (val > steps[i]) {
                     const place = direction ? i + 1 : numberOfRanges - i;
-                    data[this.abrevToCountry[e.$name]] = {
+                    this.data[this.abrevToCountry[e.$name]] = {
                         fillKey: place + ""
                     };
-                    
                     break;
                 }
             }
         });
+    }
 
-        return data;
+    private getValue = (name, field, needsYear, country) => {
+        const obj = country[name];
+
+        if (obj === undefined) {
+            return undefined;
+        }
+
+        const fieldOrMap = obj[field];
+
+        if (!needsYear || fieldOrMap === undefined) {
+            return fieldOrMap;
+        }
+
+        return fieldOrMap.get(2017);
     }
 
     render() {
-        return ( 
-            <div> 
+        this.setData();
+        return (
+            <div>
                 <Globe data={this.data}> </Globe>
             </div>
         );

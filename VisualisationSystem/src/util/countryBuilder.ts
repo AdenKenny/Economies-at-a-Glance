@@ -174,24 +174,24 @@ class CountryBuilder {
         return new Country(this);
     }
 
-    private getYears = (proprety: any): {rank: number, years: Map<number, number>} => {
+    private getYears = (property: any): {rank: number, years: Map<number, number>} => {
         const obj = {
-            rank:  proprety.rank,
+            rank:  property.rank,
             years: new Map()
         };
 
-        const keys: string[] = Object.keys(proprety);
+        const keys: string[] = Object.keys(property);
 
         const mapOfVals: Map<number, number> = new Map<number, number>();
 
         keys.forEach(k => {
             if (k !== "rank") {
-                mapOfVals[k] = proprety[k];
+                mapOfVals.set(Number.parseInt(k), property[k]);
             }
         });
 
         obj.years = mapOfVals;
-
+        
         return obj;
     }
 
