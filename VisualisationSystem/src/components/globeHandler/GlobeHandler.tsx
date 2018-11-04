@@ -5,8 +5,8 @@ import * as React from "react";
 import { Component } from 'react';
 
 import Globe from "../globe/Globe";
-import HomePage from "../../Pages/Home";
-import Country from "../../Util/country";
+import Country from "../../util/country";
+import App from "../../App";
 
 class GlobeHandler extends Component<{}> {
 
@@ -20,8 +20,8 @@ class GlobeHandler extends Component<{}> {
     }
 
     private loadData = () => {
-        const jsonData = require("../../Assets/abrevs.json");
-        const map = HomePage.superData;
+        const jsonData = require("../../assets/abrevs.json");
+        const map: Map<string, any> = App.countryData;
         Array.from(map.keys()).forEach(e => {
             const name = map.get(e).$name;
             const res = (jsonData[name]);
@@ -40,7 +40,7 @@ class GlobeHandler extends Component<{}> {
         
         const name: string = "$" + methodName;
 
-        const map: Map<string, any> = HomePage.superData;
+        const map: Map<string, any> = App.countryData;
 
         const albania: number | any = map.get("albania")[name][field];
         let min: number = albania;

@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 import * as React from 'react';
 import { Component } from 'react';
-import DatabaseModule from '../../Modules/DatabaseModule';
+import DatabaseModule from '../../modules/DatabaseModule';
 import DataMap from "datamaps";
 import "./Globe.css";
 
