@@ -51,7 +51,7 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
 
     this.mapView = <MapView />;
     
-    this.graphView = <GraphView countries = {countries} ref={(child) => {this.graphClass = child}}> </GraphView>;
+    this.graphView = <GraphView countries = {countries} ref={(child) => {if (child !== null) {this.graphClass = child;}}}> </GraphView>;
     
 
     let count = 0;
@@ -64,12 +64,10 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
 
 
     this.state = {
-      view: this.graphView,
+      view: this.mapView,
       dataLoaded: false
 
     };
-
-    this.changeView = this.changeView.bind(this);
   }
 
   componentDidMount() {
@@ -81,7 +79,6 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
       this.setState({
           dataLoaded: true
       });
-      this.graphClass.setData(this.superData);
     });
   }
 
@@ -99,12 +96,15 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
 
   }
 
-  private changeView(value: { value: string, label: string }) {
+  private changeView = (value: { value: string, label: string }) => {
     if (value.label === 'Map View') {
       this.setState({ view: this.mapView })
     }
     else if (value.label === 'Graph View') {
-      this.setState({ view: this.graphView })
+        if (this.superData !== undefined) {
+            this.graphClass.setData(this.superData);
+        }
+        this.setState({ view: this.graphView })
     }
   }
 

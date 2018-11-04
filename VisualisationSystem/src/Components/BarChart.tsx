@@ -8,8 +8,9 @@ import DatabaseModule from '../modules/DatabaseModule'
 class BarChart extends Component<{ countryList:any }> {
   private svg: any;
   private mapElement: any;
-  constructor(countryList:any) {
-    super({countryList});
+
+  constructor(props: { countryList:any }) {
+    super(props);
   }
 
   componentDidMount() {

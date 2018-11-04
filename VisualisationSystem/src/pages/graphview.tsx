@@ -45,7 +45,9 @@ export default class GraphView extends Component<{ countries: [string, string] }
     }
 
     setData(data: Map<string | null, any> | null) {
-        this.setState({ data: data });
+        if (this.state.data === null) {
+            this.setState({ data: data });
+        }
     }
 
     // isMapView: boolean = true
