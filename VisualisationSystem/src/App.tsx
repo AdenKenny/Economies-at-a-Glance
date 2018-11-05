@@ -3,8 +3,8 @@ import Button from '@material-ui/core/Button';
 import './App.css';
 
 import DatabaseModule from './modules/DatabaseModule';
-import MapView from './pages/mapview';
-import GraphView from './pages/graphview';
+import MapView from './pages/mapview/mapview';
+import GraphView from './pages/graphview/graphview';
 import logo from './logo.svg';
 import Select from 'react-select';
 import NavBar from "./components/navBar/NavBar"
@@ -44,14 +44,49 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
             dataLoaded: false
         };
     }
-
+    // const data = {
+    //     label: 'search me',
+    //     value: 'searchme',
+    //     children: [
+    //       {
+    //         label: 'search me too',
+    //         value: 'searchmetoo',
+    //         children: [
+    //           {
+    //             label: 'No one can get me',
+    //             value: 'anonymous'
+    //           }
+    //         ]
+    //       }
+    //     ]
+    //   }
     componentDidMount() {
         this.db.readFromDb().then(country => {
             App.countryData = country;
-            App.countryData.forEach((key, value) => {
-                this.countries.push({ value: value, label: value })
-            });
+            var seenReg:any = [];
+           // var data: any = {
+              //  children: []
+          //  };
+            App.countryData.forEach((value, key) => {
+                if(!seenReg.includes(value.$region)){
 
+                    this.countries.push({ value: value.$region, label: value.$region, 
+                        children: [ 
+                        { value: key, label: value.$name } 
+                    ] });
+                    seenReg.push(value.$region);
+                }
+                else{
+                    for(let region of this.countries){
+                        if(region.value === value.$region){
+                            region.children.push({ value: key, label: value.$name } )
+                        }
+                    }
+                }
+            
+                //this.countries.push({ value: value, label: value })
+            });
+            
             if (this.mapView === undefined) {
                 this.mapView = <MapView indicator="ppp"/>;
             }
