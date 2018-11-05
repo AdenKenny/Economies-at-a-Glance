@@ -32,25 +32,48 @@ class GlobeHandler extends Component<{ indicator: string }> {
 
         this.data = {}
 
-
         let name: string;
         let field: string;
         let needsYear: boolean;
         let direction: boolean;
 
         switch (this.props.indicator) {
-            case 'ppp':
+            case "ppp":
                 name = "$ppp";
                 field = "years";
                 needsYear = true;
                 direction = true;
                 break;
-            case 'unemployment':
+
+            case "unemploymentAbsolute":
                 name = "$unemployment";
                 field = "years";
                 needsYear = true;
                 direction = false;
                 break;
+
+            case "unemploymentRank":
+                name = "$unemployment";
+                field = "rank";
+                needsYear = false;
+                direction = false;
+                break;
+
+            case "inflationRank":
+                name = "$inflation";
+                field = "rank";
+                needsYear = false;
+                direction = false;
+                break;
+
+            case "inflationAbsolute":
+                name = "$inflation";
+                field = "years";
+                needsYear = true;
+                direction = false;
+                break;
+
+
             default:
                 console.log(this.props.indicator);
         }
@@ -78,8 +101,6 @@ class GlobeHandler extends Component<{ indicator: string }> {
             }
 
         });
-        console.log("Max: " + max);
-        console.log("Min: " + min)
 
         const range: number = max - min;
         const numberOfRanges: number = 7;

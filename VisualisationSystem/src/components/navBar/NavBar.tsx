@@ -17,9 +17,10 @@ class NavBar extends Component<{changeValue: any, changeView: any}> {
     
     private indicatorOptions = [
         { value: 'ppp', label: 'Purchasing Power Parity' },
-        { value: 'unemployment', label: 'Unemployment Rate' },
-        { value: 'BMI', label: 'Big Mac Index' },
-        { value: 'GDP', label: 'GDP' }
+        { value: 'unemploymentAbsolute', label: 'Unemployment Rate (%)' },
+        { value: 'unemploymentRank', label: 'Unemployment Rate (Rank)' },
+        { value: 'inflationRank', label: 'Inflation Rate (Rank)' },
+        { value: 'inflationAbsolute', label: 'Inflation Rate (%)' }
     ];
     
     private viewOptions = [
