@@ -3,13 +3,13 @@
 import * as d3 from 'd3';
 import * as React from 'react';
 import { Component } from 'react';
-import DatabaseModule from '../modules/DatabaseModule'
+import "./BarChart.css"; 
 
-class BarChart extends Component<{ countryList:any }> {
+class BarChart extends Component<{ countryList: any }> {
   private svg: any;
   private mapElement: any;
 
-  constructor(props: { countryList:any }) {
+  constructor(props: { countryList: any }) {
     super(props);
   }
 
@@ -22,8 +22,10 @@ class BarChart extends Component<{ countryList:any }> {
   }
 
   renderMap() {
-    
-  
+
+    var yH = 600;
+    var xL = 960;
+
     var countryInfo = this.props.countryList;
 
     // Scale to the amount and size of data
@@ -49,12 +51,10 @@ class BarChart extends Component<{ countryList:any }> {
 
     let svg = d3.select(this.mapElement)
       .append('svg')
-      .attr('width', width)
-      .attr('height', height);
 
     let tooltip = d3.select('body')
       .append('div')
-      .style('background','#222')
+      .style('background', '#222')
       .style('color', 'white')
       .style('position', 'absolute')
       .style("z-index", "10")
@@ -88,15 +88,60 @@ class BarChart extends Component<{ countryList:any }> {
         d3.select(this).attr('fill', 'steelBlue');
         tooltip.style('visibility', 'hidden');
       })
-    //   .on("mousemove", function (item, index) {
-    //     tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
-    //   })
+      //   .on("mousemove", function (item, index) {
+      //     tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+      //   })
       .on("click", function (item, index) {
         console.log(item);
         selectedBar.style('visibility', 'visible')
           .text('Country: ' + item[0] + ', Total Population: ' + BarChart.numberFormatter(item[1]));
       });
 
+    var x = d3.time.scale().range([0, xL]);
+    var y = d3.scale.linear().range([yH, 0]);
+
+    var xAxis = d3.svg.axis().scale(x)
+      .orient("bottom").ticks(5);
+
+    var yAxis = d3.svg.axis().scale(y)
+      .orient("left").ticks(5)
+
+    // Add the X Axis
+    svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + yH + ")")
+      .call(xAxis);
+
+    // Add the Y Axis
+    svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+    //     var formatPercent = d3.format(".0%")
+    //     //add x and y axis positions
+    //     var x = d3.scale.ordinal().rangeRoundBands([0, width], .1);
+    //     var y = d3.scale.linear() .range([height, 0]);
+
+    //     var xAxis = d3.svg.axis().scale(x).orient("bottom");
+
+    //     var yAxis = d3.svg.axis().scale(y).orient("left").tickFormat(formatPercent);
+
+
+
+    //     svg.append("g")
+    //   .attr("class", "x axis")
+    //   .attr("transform", "translate(0," + 200 + ")")
+    //   .call(xAxis);
+
+    //   svg.append("g")
+    //   .attr("class", "y axis")
+    //   .attr("transform", "translate(0," + 200 + ")")
+    //   .call(yAxis)
+    // .append("text")
+    //   .attr("transform", "rotate(-90)")
+    //   .attr("y", 6)
+    //   .attr("dy", ".71em")
+    //   .style("text-anchor", "end")
+    //   .text("Frequency");
     // const x = d3.scaleLinear().domain([0,rounds]).range([0, cellSize * (rounds)]);
     // const y = d3.scaleLinear().domain([2014,2008]).range([cellSize * allResults.length, 0]);
     // svg.append('g')
@@ -112,8 +157,8 @@ class BarChart extends Component<{ countryList:any }> {
 
   highestValue = (input: any) => {
     let highest: number = -1;
-    input.forEach((entry:any) => {
-      highest  = entry [1]>highest ?entry [1]: highest;
+    input.forEach((entry: any) => {
+      highest = entry[1] > highest ? entry[1] : highest;
     });
 
     return highest;
@@ -134,9 +179,9 @@ class BarChart extends Component<{ countryList:any }> {
   render() {
 
     return (
-      <div>
-        <div className="BarChart" ref={el => { this.mapElement = el; }}></div>
-      </div>
+
+      <div className="barChart" ref={el => { this.mapElement = el; }}></div>
+ 
     )
 
   }

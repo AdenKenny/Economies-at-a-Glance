@@ -3,8 +3,8 @@
 
 import * as React from "react";
 import { Component } from "react";
-import DatabaseModule from "../modules/DatabaseModule";
-import GlobeHandler from "../components/globeHandler/GlobeHandler";
+import DatabaseModule from "../../modules/DatabaseModule";
+import GlobeHandler from "../../components/globeHandler/GlobeHandler";
 
 export default class MapView extends Component<{indicator: string}> {
 

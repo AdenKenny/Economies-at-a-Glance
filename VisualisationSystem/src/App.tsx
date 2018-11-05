@@ -3,8 +3,8 @@ import Button from '@material-ui/core/Button';
 import './App.css';
 
 import DatabaseModule from './modules/DatabaseModule';
-import MapView from './pages/mapview';
-import GraphView from './pages/graphview';
+import MapView from './pages/mapview/mapview';
+import GraphView from './pages/graphview/graphview';
 import logo from './logo.svg';
 import Select from 'react-select';
 import NavBar from "./components/navBar/NavBar"

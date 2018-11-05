@@ -3,13 +3,13 @@
 
 import * as React from "react";
 import { Component } from "react";
-import DatabaseModule from "../modules/DatabaseModule";
+import DatabaseModule from "../../modules/DatabaseModule";
 import './graphview.css';
 import Button from '@material-ui/core/Button';
 import Select from 'react-select';
 
-import BarChart from '../components/BarChart';
-import App from "../App";
+import BarChart from '../../components/barChart/BarChart';
+import App from "../../App";
 
 const continents = [
     { value: '2016', label: '2016' },
@@ -107,13 +107,13 @@ export default class GraphView extends Component<{ countries: [string, string] }
         return (
             <div className="body">
 
-                <div className="graphPane">
+                {/* //<div className="graphPane"> */}
 
-                    {
-                        this.graphedCountries.length>0 ? <BarChart countryList={this.graphedCountries} ></BarChart> : <div></div>
-                    }
+                    
+                <BarChart countryList={this.graphedCountries} ></BarChart>
+                    
 
-                </div>
+                {/* </div> */}
                 <div className="infoPane">
 
                     <div className="col1">

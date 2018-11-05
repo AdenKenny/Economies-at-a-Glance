@@ -23,8 +23,8 @@ class NavBar extends Component<{changeValue: any, changeView: any}> {
     ];
     
     private viewOptions = [
-        { value: 'Graph', label: 'Graph View' },
         { value: 'Map', label: 'Map View' },
+        { value: 'Graph', label: 'Graph View' }     
     ];
     
     constructor(props) {

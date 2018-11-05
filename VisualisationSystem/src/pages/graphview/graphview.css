@@ -1,6 +1,9 @@
 .graphPane{
     width :70%;
     height: 100%;
+    display:flex;
+    margin-left:40px;
+    margin-top:40px;
     /* background-color: blueviolet; */
 }
 .infoPane{
@@ -46,7 +49,7 @@ h3{
 .body{
     /* background-color: aquamarine; */
   width: 100%;
-  height:700px;
+  height:750px;
   display: flex;
   /* background-color: firebrick; */
 }
