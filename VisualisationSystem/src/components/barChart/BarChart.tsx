@@ -5,12 +5,15 @@ import * as React from 'react';
 import { Component } from 'react';
 import "./BarChart.css"; 
 
-class BarChart extends Component<{ countryList: any }> {
+class BarChart extends Component<{ countryList: any }, {graphedCountries}> {
   private svg: any;
   private mapElement: any;
 
-  constructor(props: { countryList: any }) {
-    super(props);
+  constructor(props: { countryList: any }, state) {
+    super(props, state);
+    this.state = {
+      graphedCountries: this.props.countryList
+    };
   }
 
   componentDidMount() {
@@ -26,7 +29,7 @@ class BarChart extends Component<{ countryList: any }> {
     var yH = 600;
     var xL = 960;
 
-    var countryInfo = this.props.countryList;
+    var countryInfo = this.state.graphedCountries;
 
     // Scale to the amount and size of data
     const width = window.screen.width / 2,
@@ -104,7 +107,7 @@ class BarChart extends Component<{ countryList: any }> {
       .orient("bottom").ticks(5);
 
     var yAxis = d3.svg.axis().scale(y)
-      .orient("left").ticks(5)
+      .orient("left").ticks(5);
 
     // Add the X Axis
     svg.append("g")

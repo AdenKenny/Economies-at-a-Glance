@@ -44,14 +44,49 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
             dataLoaded: false
         };
     }
-
+    // const data = {
+    //     label: 'search me',
+    //     value: 'searchme',
+    //     children: [
+    //       {
+    //         label: 'search me too',
+    //         value: 'searchmetoo',
+    //         children: [
+    //           {
+    //             label: 'No one can get me',
+    //             value: 'anonymous'
+    //           }
+    //         ]
+    //       }
+    //     ]
+    //   }
     componentDidMount() {
         this.db.readFromDb().then(country => {
             App.countryData = country;
-            App.countryData.forEach((key, value) => {
-                this.countries.push({ value: value, label: value })
-            });
+            var seenReg:any = [];
+           // var data: any = {
+              //  children: []
+          //  };
+            App.countryData.forEach((value, key) => {
+                if(!seenReg.includes(value.$region)){
 
+                    this.countries.push({ value: value.$region, label: value.$region, 
+                        children: [ 
+                        { value: key, label: value.$name } 
+                    ] });
+                    seenReg.push(value.$region);
+                }
+                else{
+                    for(let region of this.countries){
+                        if(region.value === value.$region){
+                            region.children.push({ value: key, label: value.$name } )
+                        }
+                    }
+                }
+            
+                //this.countries.push({ value: value, label: value })
+            });
+            
             if (this.mapView === undefined) {
                 this.mapView = <MapView indicator="ppp"/>;
             }
