@@ -10,6 +10,7 @@ import Select from 'react-select';
 
 import BarChart from '../components/BarChart';
 import App from "../App";
+import ChartHandler from "../components/ChartHandler/ChartHandler";
 
 const continents = [
     { value: '2016', label: '2016' },
@@ -34,7 +35,6 @@ export default class GraphView extends Component<{ countries: [string, string] }
     constructor(props: Readonly<{ countries: [string, string], superData: Map<string | null, any> }>) {
         super(props);
         this.countries = this.props.countries;
-        console.log(this.countries);
         this.state = {
             textValue: 'Bar Graph'
         }
@@ -73,7 +73,6 @@ export default class GraphView extends Component<{ countries: [string, string] }
     // }
 
     private changeCountries(value: any) {
-        console.log("changing countries");
         //this.graphedCountries=value;
         this.graphedCountries = [];
 
@@ -110,7 +109,7 @@ export default class GraphView extends Component<{ countries: [string, string] }
                 <div className="graphPane">
 
                     {
-                        this.graphedCountries.length>0 ? <BarChart countryList={this.graphedCountries} ></BarChart> : <div></div>
+                        this.graphedCountries.length>0 ? <ChartHandler countryList={this.graphedCountries} indicator={'population'}/> : <div></div>
                     }
 
                 </div>
