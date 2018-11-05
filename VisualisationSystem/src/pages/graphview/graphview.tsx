@@ -11,7 +11,7 @@ import Select from 'react-select';
 import DropdownTreeSelect from 'react-dropdown-tree-select'
 import 'react-dropdown-tree-select/dist/styles.css'
 
-import BarChart from '../../components/barChart/BarChart';
+import ChartHandler from '../../components/ChartHandler/ChartHandler';
 import App from "../../App";
 
 const continents = [
@@ -46,41 +46,10 @@ export default class GraphView extends Component<{ countries: any }, { textValue
         this.isTrend = false;
     }
 
-    // isMapView: boolean = true
-    // const mapView = true;
-
-
-    // handleChange = (selectedOption: any) => {
-    //     this.setState({ selectedOption });
-    //     console.log(`Option selected:`, selectedOption);
-    // } 
-
-    // changeView(){
-    //     this.isTrend = !this.isTrend;
-    //     if(this.isTrend){
-    //         this.button = <Button variant="contained" color="primary" className="b" onClick = { () => this.changeView()}> Bar Graph </Button>
-    //    }
-    //    else{
-    //        this.button = <Button variant="contained" color="primary" className="b" onClick = { () => this.changeView()}> Yearly Trend </Button>
-    //    }
-    //     console.log(this.isTrend);
-    //     this.render();
-
-    // }
-    // getView(){
-    //     if(this.isTrend){
-    //         return (<Button variant="contained" color="primary" className="b" onClick = { () => this.changeView()}> {this.state.textValue}</Button>);
-    //    }
-    //    else{
-    //        return (<Button variant="contained" color="primary" className="b" onClick = { () => this.changeView()}> Yearly Trend </Button>);
-    //    }
-
-    // }
-
     render() {
         return (
             <div className="body">
-                <BarChart countryList={this.graphedCountries} ref={(child) => this.chart = child} ></BarChart>
+                <ChartHandler graphedCountries={this.graphedCountries} ref={(child) => this.chart = child} ></ChartHandler>
                 <div className="infoPane">
                     <div className="col3">
                         <DropdownTreeSelect className="selector" data={this.countries}
@@ -97,7 +66,7 @@ export default class GraphView extends Component<{ countries: any }, { textValue
         const graphedCountries = changed.map(countryName => {
             const countryData = data.get(countryName);
             const pop: number = (countryData.$population != null ? countryData.$population.total : 0);
-            return [countryName, pop];
+            return [countryData.$name, pop];
         });
 
         this.graphedCountries = graphedCountries;
