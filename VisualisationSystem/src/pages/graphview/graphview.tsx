@@ -86,7 +86,7 @@ export default class GraphView extends Component<{ countries: any }, { textValue
                 }
             }
             else {
-                changed.push(entry.label);
+                changed.push(entry.value);
             }
         }
         return changed;
