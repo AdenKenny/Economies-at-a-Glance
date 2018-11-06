@@ -125,9 +125,17 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
         if (!this.state.dataLoaded) {
             return;
         }
-        this.setState({
-            view: <MapView indicator={val.value}/>
-        });
+
+        if(this.state.view.type.name === "MapView"){
+            this.setState({
+                view: <MapView indicator={val.value}/>
+            });
+        }
+        else if(this.state.view.type.name === "GraphView"){
+            // this.setState({
+            //     view: <GraphView indicator={val.value}/>
+            // });
+        }
     }
 
     public render() {

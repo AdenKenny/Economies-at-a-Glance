@@ -100,25 +100,25 @@ class BarChart extends Component<{ countryList: any }, {graphedCountries}> {
           .text('Country: ' + item[0] + ', Total Population: ' + BarChart.numberFormatter(item[1]));
       });
 
-    var x = d3.time.scale().range([0, xL]);
-    var y = d3.scale.linear().range([yH, 0]);
+    // var x = d3.time.scale().range([0, xL]);
+    // var y = d3.scale.linear().range([yH, 0]);
 
-    var xAxis = d3.svg.axis().scale(x)
-      .orient("bottom").ticks(5);
+    // var xAxis = d3.svg.axis().scale(x)
+    //   .orient("bottom").ticks(5);
 
-    var yAxis = d3.svg.axis().scale(y)
-      .orient("left").ticks(5);
+    // var yAxis = d3.svg.axis().scale(y)
+    //   .orient("left").ticks(5);
 
-    // Add the X Axis
-    svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + yH + ")")
-      .call(xAxis);
+    // // Add the X Axis
+    // svg.append("g")
+    //   .attr("class", "x axis")
+    //   .attr("transform", "translate(0," + yH + ")")
+    //   .call(xAxis);   
 
-    // Add the Y Axis
-    svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
+    // // Add the Y Axis
+    // svg.append("g")
+    //   .attr("class", "y axis")
+    //   .call(yAxis);
     //     var formatPercent = d3.format(".0%")
     //     //add x and y axis positions
     //     var x = d3.scale.ordinal().rangeRoundBands([0, width], .1);

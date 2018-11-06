@@ -16,6 +16,7 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
     const bars = [];
     data.forEach((datum, i) => {
       bars.push(
+       // <Tooltip content="😎">
         <rect
           id={i}
           key={i}
@@ -24,7 +25,8 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
           height={height - margins.bottom - scales.yScale(datum.value)}
           width={xScale.bandwidth()}
           fill={'#003366'}
-        />
+          />
+          
       );
     });
 
