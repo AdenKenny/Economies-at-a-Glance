@@ -25,7 +25,7 @@ const view = [
     { value: 'YT', label: 'Yearly Trend' },
 ];
 
-export default class GraphView extends Component<{ countries: any }, { textValue: string}> {
+export default class GraphView extends Component<{ countries: any, indicator: string}> {
 
     selectedOption: null
     private isTrend: boolean;
@@ -36,13 +36,13 @@ export default class GraphView extends Component<{ countries: any }, { textValue
 
     private chart;
 
-    constructor(props: Readonly<{ countries: any, superData: Map<string | null, any> }>) {
+    constructor(props: Readonly<{ countries: any, indicator: string}>) {
         super(props);
         this.countries = this.props.countries;
 
-        this.state = {
-            textValue: 'Bar Graph',
-        }
+        // this.state = {
+        //     textValue: 'Bar Graph',
+        // }
         this.isTrend = false;
     }
 

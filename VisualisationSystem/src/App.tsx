@@ -92,7 +92,7 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
             }
 
             if (this.graphView === undefined) {
-                this.graphView = <GraphView countries={this.countries}> </GraphView>;
+                this.graphView = <GraphView countries={this.countries} indicator = "ppp"> </GraphView>;
             }
 
             this.setState({
@@ -132,9 +132,10 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
             });
         }
         else if(this.state.view.type.name === "GraphView"){
-            // this.setState({
-            //     view: <GraphView indicator={val.value}/>
-            // });
+            this.setState({
+                //TODO need to update grapview so that the state of the graph stays the same throughout type changes.
+                //view: <GraphView countries={this.countries} indicator = {val.val}/>
+            });
         }
     }
 
