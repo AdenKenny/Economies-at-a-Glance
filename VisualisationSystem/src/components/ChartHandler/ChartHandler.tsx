@@ -18,7 +18,7 @@ export default class ChartHandler extends Component<{graphedCountries, indicator
     render() {
         if (this.state.graphedCountries.length === 0) {
             return (
-                <div className="filler"/>
+                <div className="filler"> <h2>Select countries to begin</h2></div>
             );
         }
         const dataHandler = App.dataHandler;
