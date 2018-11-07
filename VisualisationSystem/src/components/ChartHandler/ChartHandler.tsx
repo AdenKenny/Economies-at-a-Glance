@@ -18,7 +18,7 @@ export default class ChartHandler extends Component<{graphedCountries, indicator
     render() {
         if (this.state.graphedCountries.length === 0) {
             return (
-                <div className="filler"/>
+                <div className="filler"> <h2>Select countries to begin</h2></div>
             );
         }
         const dataHandler = App.dataHandler;
@@ -27,7 +27,6 @@ export default class ChartHandler extends Component<{graphedCountries, indicator
         const range = dataHandler.getRange(data);
         return (
             <Chart data={data} max={range.max}/>
-            //data.length > 0 ? <Chart data={data} max={range.max}/> : <div className="filler"><button>dfasdfsadfasdfasdf</button></div>
         );
     }
 
