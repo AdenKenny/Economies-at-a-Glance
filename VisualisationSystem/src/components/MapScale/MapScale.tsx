@@ -2,25 +2,42 @@ import * as React from "react";
 import { Component } from 'react';
 import ScaleBox from "../ScaleBox/ScaleBox";
 
-class MapScale extends Component<{}> {
+import "./MapScale.css";
+
+class MapScale extends Component<{data: string[]}> {
 
     constructor(props) {
         super(props);
     }
 
     render() {
-        return(
-            <div>
-                <ScaleBox className="default"> </ScaleBox>
-                <ScaleBox className="one"> </ScaleBox>
-                <ScaleBox className="two"> </ScaleBox>
-                <ScaleBox className="three"> </ScaleBox>
-                <ScaleBox className="four"> </ScaleBox>
-                <ScaleBox className="five"> </ScaleBox>
-                <ScaleBox className="six"> </ScaleBox>
-                <ScaleBox className="seven"> </ScaleBox>
-            </div>
+
+        const scaleKeys: string[] = this.props.data;
+        
+        console.log(scaleKeys.length);
+
+        if (scaleKeys.length == 7) { // Make sure there are the correct number of scale keys.
+            return (
+                <div className="scaleBox">
+                    <ul> 
+                        <ScaleBox scaleLabel="No Data" className="default"> </ScaleBox>
+                        <ScaleBox scaleLabel={"<= " + scaleKeys[0]} className="one"> </ScaleBox>
+                        <ScaleBox scaleLabel={scaleKeys[1]} className="two"> </ScaleBox>
+                        <ScaleBox scaleLabel={scaleKeys[2]} className="three"> </ScaleBox>
+                        <ScaleBox scaleLabel={scaleKeys[3]} className="four"> </ScaleBox>
+                        <ScaleBox scaleLabel={scaleKeys[4]} className="five"> </ScaleBox>
+                        <ScaleBox scaleLabel={scaleKeys[5]} className="six"> </ScaleBox>
+                        <ScaleBox scaleLabel={">= " + scaleKeys[6]} className="seven"> </ScaleBox> 
+                    </ul>
+                </div>
+            );
+        }
+
+        return (
+            <div> </div>
         );
+
+       
     }
 }
 
