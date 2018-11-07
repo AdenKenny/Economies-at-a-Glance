@@ -5,6 +5,7 @@ import * as React from "react";
 import { Component } from 'react';
 
 import Globe from "../globe/Globe";
+import MapScale from "../MapScale/MapScale";
 import Country from "../../util/country";
 import App from "../../App";
 
