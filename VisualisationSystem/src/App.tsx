@@ -137,7 +137,7 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
                 //view: <GraphView countries={this.countries} indicator = {val.val}/>
             });
         }
-    }
+    } 
 
     public render() {
         return (

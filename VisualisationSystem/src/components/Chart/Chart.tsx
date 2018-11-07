@@ -25,8 +25,8 @@ class Chart extends Component<{data}> {
 
         const margins = { top: 100, right: 2 + buffer, bottom: 100, left: 148 + buffer };
         const svgDimensions = {
-            width: 1000,
-            height: 600
+            width: 1400,
+            height: 750
         };
 
         let maxValue = 0;
@@ -47,8 +47,8 @@ class Chart extends Component<{data}> {
             .range([svgDimensions.height - margins.bottom, margins.top]);
 
         return (
-            <div>
-                <svg width={svgDimensions.width} height={svgDimensions.height}>
+            <div className = "graphPane">
+                <svg width={svgDimensions.width} height={svgDimensions.height} className = "theSVG">
                     <g>
                         <text className="title" x={(svgDimensions.width + margins.left) / 2} y={50}>Title</text>
                     </g>

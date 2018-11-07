@@ -11,3 +11,15 @@
     text-anchor: middle;
     font-size: 2em;
 }
+.filler{
+    width:75%;
+}
+.theSVG{
+   margin:auto;
+   /* margin-top: auto;
+   margin-bottom:auto;
+   margin-right:auto; */
+    align-self: flex-start;
+    align-items: flex-start;
+    text-align: left;
+}

@@ -25,7 +25,7 @@ const view = [
     { value: 'YT', label: 'Yearly Trend' },
 ];
 
-export default class GraphView extends Component<{ countries: any, indicator: string}> {
+export default class GraphView extends Component<{ countries: any, indicator: string }> {
 
     selectedOption: null
     private isTrend: boolean;
@@ -36,7 +36,7 @@ export default class GraphView extends Component<{ countries: any, indicator: st
 
     private chart;
 
-    constructor(props: Readonly<{ countries: any, indicator: string}>) {
+    constructor(props: Readonly<{ countries: any, indicator: string }>) {
         super(props);
         this.countries = this.props.countries;
 
@@ -49,12 +49,15 @@ export default class GraphView extends Component<{ countries: any, indicator: st
     render() {
         return (
             <div className="body">
+  
                 <ChartHandler graphedCountries={this.graphedCountries} ref={(child) => this.chart = child} ></ChartHandler>
+ 
                 <div className="infoPane">
-                    <div className="col3">
-                        <DropdownTreeSelect className="selector" data={this.countries}
-                            onChange={this.onChange} selected={this.graphedCountries} />
-                    </div>
+                    <div className = "titleDiv"><text>Country Select</text></div>
+                    <div className = "selectionDiv"><DropdownTreeSelect className="selector" data={this.countries}
+                        onChange={this.onChange} selected={this.graphedCountries} /></div>
+                    
+
                 </div>
             </div>
         );
@@ -70,7 +73,7 @@ export default class GraphView extends Component<{ countries: any, indicator: st
         });
 
         this.graphedCountries = graphedCountries;
-        this.chart.setState({graphedCountries: graphedCountries});
+        this.chart.setState({ graphedCountries: graphedCountries });
     }
 
     getChanged = (values) => {

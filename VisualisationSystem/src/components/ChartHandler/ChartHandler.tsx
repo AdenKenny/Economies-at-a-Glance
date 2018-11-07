@@ -20,7 +20,7 @@ export default class ChartHandler extends Component<{graphedCountries}, {graphed
             };
         });
         return (
-            data.length > 0 ? <Chart data={data}/> : <div className="filler"/>
+            data.length > 0 ? <Chart data={data}/> : <div className="filler"><h2>Select countries to view graph</h2></div>
         );
     }
 
