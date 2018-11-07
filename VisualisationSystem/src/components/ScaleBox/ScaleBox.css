@@ -1,0 +1,36 @@
+#rectangle {
+    height: 40px;
+    width: 40px;
+}
+
+.one {
+    background: #FAE7A2;
+}
+
+.two {
+    background: #F6CD78;
+}
+
+.three {
+    background: #F3B557;
+}
+
+.four {
+    background: #EF972F;
+}
+
+.five {
+    background: #EB7624;
+}
+
+.six {
+    background: #C5642F;
+}
+
+.seven {
+    background: #A04B27;
+}
+
+.default {
+    background: #AAAAAA;
+}
