@@ -1,26 +1,33 @@
 import React, {Component} from 'react';
 import Chart from '../Chart/Chart';
 
+import App from '../../App';
+
 import "./ChartHandler.css";
 
-export default class ChartHandler extends Component<{graphedCountries}, {graphedCountries}> {
+export default class ChartHandler extends Component<{graphedCountries, indicator}, {graphedCountries, indicator}> {
 
     constructor(props, state) {
         super(props, state);
         this.state = {
-            graphedCountries: this.props.graphedCountries
+            graphedCountries: this.props.graphedCountries,
+            indicator: this.props.indicator
         };
     }
     
     render() {
-        const data = this.state.graphedCountries.map(d => {
-            return {
-                name: d[0],
-                value: d[1]
-            };
-        });
+        if (this.state.graphedCountries.length === 0) {
+            return (
+                <div className="filler"/>
+            );
+        }
+        const dataHandler = App.dataHandler;
+        const fields = dataHandler.getFields(this.state.graphedCountries, this.props.indicator);
+        const data = dataHandler.getData(this.state.graphedCountries, fields);
+        const range = dataHandler.getRange(data);
         return (
-            data.length > 0 ? <Chart data={data}/> : <div className="filler"><h2>Select countries to view graph</h2></div>
+            <Chart data={data} max={range.max}/>
+            //data.length > 0 ? <Chart data={data} max={range.max}/> : <div className="filler"><button>dfasdfsadfasdfasdf</button></div>
         );
     }
 

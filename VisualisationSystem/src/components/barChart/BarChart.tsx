@@ -100,61 +100,7 @@ class BarChart extends Component<{ countryList: any }, {graphedCountries}> {
           .text('Country: ' + item[0] + ', Total Population: ' + BarChart.numberFormatter(item[1]));
       });
 
-    // var x = d3.time.scale().range([0, xL]);
-    // var y = d3.scale.linear().range([yH, 0]);
-
-    // var xAxis = d3.svg.axis().scale(x)
-    //   .orient("bottom").ticks(5);
-
-    // var yAxis = d3.svg.axis().scale(y)
-    //   .orient("left").ticks(5);
-
-    // // Add the X Axis
-    // svg.append("g")
-    //   .attr("class", "x axis")
-    //   .attr("transform", "translate(0," + yH + ")")
-    //   .call(xAxis);   
-
-    // // Add the Y Axis
-    // svg.append("g")
-    //   .attr("class", "y axis")
-    //   .call(yAxis);
-    //     var formatPercent = d3.format(".0%")
-    //     //add x and y axis positions
-    //     var x = d3.scale.ordinal().rangeRoundBands([0, width], .1);
-    //     var y = d3.scale.linear() .range([height, 0]);
-
-    //     var xAxis = d3.svg.axis().scale(x).orient("bottom");
-
-    //     var yAxis = d3.svg.axis().scale(y).orient("left").tickFormat(formatPercent);
-
-
-
-    //     svg.append("g")
-    //   .attr("class", "x axis")
-    //   .attr("transform", "translate(0," + 200 + ")")
-    //   .call(xAxis);
-
-    //   svg.append("g")
-    //   .attr("class", "y axis")
-    //   .attr("transform", "translate(0," + 200 + ")")
-    //   .call(yAxis)
-    // .append("text")
-    //   .attr("transform", "rotate(-90)")
-    //   .attr("y", 6)
-    //   .attr("dy", ".71em")
-    //   .style("text-anchor", "end")
-    //   .text("Frequency");
-    // const x = d3.scaleLinear().domain([0,rounds]).range([0, cellSize * (rounds)]);
-    // const y = d3.scaleLinear().domain([2014,2008]).range([cellSize * allResults.length, 0]);
-    // svg.append('g')
-    //   .attr("class", "axis axis--x")
-    //   .attr("transform", "translate(" + (cellWidth * 2 - 2) + "," + (height / 2 + cellHeight * 1.5 + 5) + ")")
-    //   .call(d3.axisBottom(x));
-
     this.svg = svg;
-
-
 
   }
 

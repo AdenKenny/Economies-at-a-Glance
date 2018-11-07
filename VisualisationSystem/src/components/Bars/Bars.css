@@ -1,0 +1,6 @@
+.bars{
+    fill: #003366;
+}
+.bars:hover{
+    opacity: 0.7;
+}

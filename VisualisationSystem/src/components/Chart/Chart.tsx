@@ -5,7 +5,7 @@ import Axes from '../Axes/Axes';
 import Bars from '../Bars/Bars';
 import './Chart.css';
 
-class Chart extends Component<{data}> {
+class Chart extends Component<{data, max}> {
     
     private xScale;
     private yScale;
@@ -29,21 +29,13 @@ class Chart extends Component<{data}> {
             height: 750
         };
 
-        let maxValue = 0;
-        this.props.data.forEach(e => {
-            if (e.value > maxValue) {
-                maxValue = e.value;
-            }
-        });
-        maxValue *= 1.2;
-
         const xScale = this.xScale
             .padding(0.1)
             .domain(this.props.data.map(d => d.name))
             .range([margins.left, svgDimensions.width - margins.right]);
 
         const yScale = this.yScale
-            .domain([0, maxValue])
+            .domain([0, this.props.max * 1.2])
             .range([svgDimensions.height - margins.bottom, margins.top]);
 
         return (
@@ -61,7 +53,7 @@ class Chart extends Component<{data}> {
                         scales={{ xScale, yScale }}
                         margins={margins}
                         data={this.props.data}
-                        maxValue={maxValue}
+                        maxValue={this.props.max}
                         svgDimensions={svgDimensions}
                     />
                     {/*<g>
