@@ -13,14 +13,6 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
     super(props);
   }
 
-  doSomething(position:any, country:any){
-    let xPos = position.props.x,
-    yPos = position.props.y,
-    name = country.name,
-    value = country.value;
-
-  }
-
   render() {
     const { scales, margins, data, svgDimensions } = this.props;
     const { xScale, yScale } = scales;
@@ -29,10 +21,9 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
     const bars = [];
     data.forEach((datum, i) => {
       bars.push(
-       // <Tooltip content="😎">
        <Tooltip 
        placement='rightTop' 
-       overlay={'Population of ' + data[i].name + ': ' + Bars.numberFormatter(data[i].value)}
+       overlay={data[i].name + ': ' + Bars.commafier(data[i].value)}
        >
         <rect
           id={i}
@@ -48,7 +39,6 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
       );
     });
 
-
     return (
         <g>
           {bars}
@@ -56,15 +46,11 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
     );
   }
 
-  static numberFormatter = (input: number) => {
-    if (input > 999999999) {
-      return (input / 1000000000).toFixed(2) + 'b';
-    } else if (input > 999999) {
-      return (input / 1000000).toFixed(1) + 'm';
-    } else if (input > 999) {
-      return (input / 1000).toFixed(1) + 'k';
-    } else {
-      return input;
-    }
+  static commafier = (input:number) => {
+    if(input !== undefined)
+      return input.toLocaleString(navigator.language);
+    else
+      return 0;
   }
+
 }
