@@ -11,6 +11,8 @@ import Select from 'react-select';
 import DropdownTreeSelect from 'react-dropdown-tree-select'
 import 'react-dropdown-tree-select/dist/styles.css'
 
+import Country from '../../util/dataHandler';
+
 import ChartHandler from '../../components/ChartHandler/ChartHandler';
 import App from "../../App";
 
@@ -25,31 +27,29 @@ const view = [
     { value: 'YT', label: 'Yearly Trend' },
 ];
 
-export default class GraphView extends Component<{ countries: any, indicator: string}> {
+export default class GraphView extends Component<{ countries: any, indicator: string}, { indicator }> {
 
-    selectedOption: null
-    private isTrend: boolean;
     private button: any;
     private countries: any[];
 
-    private graphedCountries = [];
+    private graphedCountries: Country[];
 
     private chart;
 
-    constructor(props: Readonly<{ countries: any, indicator: string}>) {
-        super(props);
+    constructor(props: Readonly<{ countries: any, indicator: string}>, state) {
+        super(props, state);
+        this.graphedCountries = [];
         this.countries = this.props.countries;
 
-        // this.state = {
-        //     textValue: 'Bar Graph',
-        // }
-        this.isTrend = false;
+        this.state = {
+            indicator: this.props.indicator
+        };
     }
 
     render() {
         return (
             <div className="body">
-                <ChartHandler graphedCountries={this.graphedCountries} ref={(child) => this.chart = child} ></ChartHandler>
+                <ChartHandler graphedCountries={this.graphedCountries} indicator={this.state.indicator} ref={(child) => this.chart = child}/>
                 <div className="infoPane">
                     <div className="col3">
                         <DropdownTreeSelect className="selector" data={this.countries}
@@ -63,14 +63,10 @@ export default class GraphView extends Component<{ countries: any, indicator: st
     onChange = (value, values) => {
         const changed = this.getChanged(values);
         let data = App.countryData;
-        const graphedCountries = changed.map(countryName => {
-            const countryData = data.get(countryName);
-            const pop: number = (countryData.$population != null ? countryData.$population.total : 0);
-            return [countryData.$name, pop];
+        this.graphedCountries = changed.map(countryName => {
+            return data.get(countryName);
         });
-
-        this.graphedCountries = graphedCountries;
-        this.chart.setState({graphedCountries: graphedCountries});
+        this.chart.setState({graphedCountries: this.graphedCountries});
     }
 
     getChanged = (values) => {

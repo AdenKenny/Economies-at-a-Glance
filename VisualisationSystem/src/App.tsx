@@ -8,6 +8,7 @@ import GraphView from './pages/graphview/graphview';
 import logo from './logo.svg';
 import Select from 'react-select';
 import NavBar from "./components/navBar/NavBar"
+import DataHandler from './util/dataHandler';
 
 const countryList = [];
 
@@ -15,8 +16,11 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
 
     private db: DatabaseModule;
     public static countryData: Map<string | null, any>;
+    public static dataHandler: DataHandler;
 
     private graphClass: any;
+
+    private navBar;
 
     private graphView: JSX.Element;
     private mapView: JSX.Element;
@@ -28,15 +32,6 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
         super(props, state);
         this.db = new DatabaseModule();
         App.countryData = new Map<string | null, any>();
-
-
-        let count = 0;
-        // this.superData.forEach((name, info) => {
-        //   let countryName = name.name;
-        //   countryValue[count] = (name.population != null ? name.population.total : 0);
-        //   countryInfo[count] = [countryName, countryValue[count]]; 
-        //   count++;
-        // })
 
 
         this.state = {
@@ -86,13 +81,15 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
             
                 //this.countries.push({ value: value, label: value })
             });
+
+            App.dataHandler = new DataHandler(App.countryData);
             
             if (this.mapView === undefined) {
                 this.mapView = <MapView indicator="ppp"/>;
             }
 
             if (this.graphView === undefined) {
-                this.graphView = <GraphView countries={this.countries} indicator = "ppp"> </GraphView>;
+                this.graphView = <GraphView countries={this.countries} indicator = "ppp" ref={(child)=>{this.graphClass = child;}}/>;
             }
 
             this.setState({
@@ -114,10 +111,12 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
             return;
         }
         if (value.label === 'Map View') {
-            this.setState({ view: this.mapView })
+            this.setState({ view: this.mapView });
+            this.navBar.setState({isMap: true});
         }
         else if (value.label === 'Graph View') {
-            this.setState({ view: this.graphView })
+            this.setState({ view: this.graphView });
+            this.navBar.setState({isMap: false});
         }
     }
 
@@ -126,15 +125,14 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
             return;
         }
 
-        if(this.state.view.type.name === "MapView"){
+        if(this.navBar.state.isMap){
             this.setState({
                 view: <MapView indicator={val.value}/>
             });
         }
-        else if(this.state.view.type.name === "GraphView"){
-            this.setState({
-                //TODO need to update grapview so that the state of the graph stays the same throughout type changes.
-                //view: <GraphView countries={this.countries} indicator = {val.val}/>
+        else {
+            this.graphClass.setState({
+                indicator: val.value
             });
         }
     }
@@ -144,7 +142,7 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Economies at a Glance</h1>
-                    <NavBar changeValue={this.changeValue} changeView={this.changeView}/>
+                    <NavBar changeValue={this.changeValue} changeView={this.changeView} ref={(child) => {this.navBar = child;}}/>
                 </header>
                 {
                     this.state.dataLoaded ? this.state.view : <div></div>
