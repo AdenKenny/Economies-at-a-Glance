@@ -1,12 +1,11 @@
 import * as d3 from 'd3';
 import React, { Component } from 'react';
-import NodeGroup from 'react-move/NodeGroup';
+import Animate from "react-move/Animate";
 import { scaleLinear } from 'd3-scale';
 import { interpolateLab } from 'd3-interpolate';
 
 import './Bars.css';
 import Tooltip from 'rc-tooltip';
-import Animate from 'rc-animate';
 import 'rc-tooltip/assets/bootstrap.css';
 
 export default class Bars extends Component<{maxValue, scales, margins, data, svgDimensions}> {
@@ -24,6 +23,7 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
     data.forEach((datum, i) => {
       const value = datum.value !== undefined ? datum.value : 0;
       bars.push(
+        
        <Tooltip 
        placement='rightTop' 
        overlay={datum.name + ': ' + Bars.commafier(datum.value)}
@@ -51,11 +51,18 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
     );
   }
 
-  static commafier = (input:number) => {
-    if(input !== undefined)
-      return input.toLocaleString(navigator.language);
-    else
+  static numberFormatter = (input: number) => {
+    if(input === undefined){
       return 0;
+    } else if (input > 999999999) {
+      return (input / 1000000000).toLocaleString(navigator.language) + 'b';
+    } else if (input > 999999) {
+      return (input / 1000000).toLocaleString(navigator.language) + 'm';
+    } else if (input > 999) {
+      return (input / 1000).toLocaleString(navigator.language) + 'k';
+    } else {
+      return input;
+    }
   }
 
 }
