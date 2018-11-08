@@ -23,15 +23,10 @@ export default class MapView extends Component<{ indicator: string }> {
     render() {
         return (
             <div>
-            <GlobeHandler indicator={this.props.indicator}/>
+                <GlobeHandler indicator={this.props.indicator}/>
             </div>
         );
     }
     
-    changeView = (country: string) => {
-        this.setState({
-           countryView: <CountryInfo country = {country}/>
-        });
-    }
 
 }

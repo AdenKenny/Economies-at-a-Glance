@@ -14,8 +14,9 @@ import DataHandler from "src/util/dataHandler";
 import ZoomButton from "../ZoomButton/ZoomButton";
 import { Button } from "@material-ui/core";
 import DirectionButton from "../DirectionButton/DirectionButton";
+import CountryInfo from "../../pages/countryInfo/CountryInfo";
 
-class GlobeHandler extends Component<{ indicator: string}> {
+class GlobeHandler extends Component<{ indicator: string}, {countryInfo: any}> {
 
     private abrevToCountry = {};
 
@@ -26,6 +27,9 @@ class GlobeHandler extends Component<{ indicator: string}> {
     
     constructor(props) {
         super(props);
+        this.state ={
+            countryInfo : ""
+        }
     }
     /* Load in the abreveations to associate them with data from the database
         This allows the association of indicators to the countries on the map.
@@ -58,6 +62,17 @@ class GlobeHandler extends Component<{ indicator: string}> {
 
     handleChange = () => {
 
+    }
+
+    changeView = (country: string) => {
+        console.log(country);
+        var c: any = country.toLowerCase();
+        
+        var countryOb = App.countryData.get(c)
+
+        this.setState({
+            countryInfo: <CountryInfo country = {countryOb} />
+        });
     }
 
     render() {
@@ -96,12 +111,13 @@ class GlobeHandler extends Component<{ indicator: string}> {
                 </div>
                 <div>
                     <div className="globe">   
-                        <Globe data={data} globeHandler={this}/>
+                        <Globe data={data} globeHandler={this} changeView ={this.changeView}/>
                     </div>
                     <div className="scaleKeysBox">
                         <MapScale data={scaleKeys}/>
                     </div>
                 </div>
+                    {this.state.countryInfo != "" ? this.state.countryInfo :<div></div> }
             </div>
         );
 

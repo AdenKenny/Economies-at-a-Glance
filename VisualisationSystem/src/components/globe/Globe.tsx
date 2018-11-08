@@ -6,7 +6,7 @@ import "./Globe.css";
 import GlobeHandler from '../globeHandler/GlobeHandler';
 import CountryInfo from '../../pages/countryInfo/CountryInfo';
 
-class Globe extends Component<{data: any, globeHandler: GlobeHandler}> {
+class Globe extends Component<{data: any, globeHandler: GlobeHandler, changeView: any}> {
 
     private globeHandler: GlobeHandler = this.props.globeHandler;
 
@@ -55,7 +55,7 @@ class Globe extends Component<{data: any, globeHandler: GlobeHandler}> {
                 done: (datamap) => {
                     datamap.svg.selectAll('.datamaps-subunit').on('click', (geography, data, data2) => {
                         //console.log(geography.properties.name.toLowerCase())
-                        //this.props.changeView(geography.properties.name);
+                        this.props.changeView(geography.properties.name);
 
                     });
                 }
