@@ -38,12 +38,11 @@
 }
 
 .scaleLabel {
-    font-size: 12px;
+    font-size: 13px;
     padding-left: 5%;
-    margin: auto;
 }
 
 .scaleLabelLabel {
-    font-family: 'Open Sans', sans-serif;
     font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
 }
