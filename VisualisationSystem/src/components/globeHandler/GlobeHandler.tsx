@@ -11,14 +11,17 @@ import MapScale from "../MapScale/MapScale";
 import "./GlobeHandler.css";
 import DataHandler from "src/util/dataHandler";
 import ZoomButton from "../ZoomButton/ZoomButton";
+import { Button } from "@material-ui/core";
+import DirectionButton from "../DirectionButton/DirectionButton";
 
 class GlobeHandler extends Component<{ indicator: string }> {
 
     private abrevToCountry = {};
 
-    zoomInF;
-    zoomOutF;
-    zoomResetF;
+    zoomInF: () => void;
+    zoomOutF: () => void;
+    zoomResetF: () => void;
+    panF: (x: number, y: number) => void;
     
     constructor(props) {
         super(props);
@@ -37,16 +40,20 @@ class GlobeHandler extends Component<{ indicator: string }> {
         });
     }
 
-    zoomIn = () => {
+    zoomIn = (): void => {
         this.zoomInF();
     }
 
-    zoomOut = () => {
+    zoomOut = (): void => {
         this.zoomOutF();
     }
 
-    resetZoom = () => {
+    resetZoom = (): void => {
         this.zoomResetF();
+    }
+
+    pan = (x: number, y: number): void => {
+        this.panF(x, y);
     }
 
     render() {
@@ -69,18 +76,26 @@ class GlobeHandler extends Component<{ indicator: string }> {
         
         return (
             <div className="flexContainer">
-                <div className="zoomButtonContainer">
-                    <ZoomButton onClick={this.zoomIn} text="Zoom In"> </ZoomButton>
-                    <ZoomButton onClick={this.zoomOut} text="Zoom Out"> </ZoomButton>
-                    <ZoomButton onClick={this.resetZoom} text="Reset Zoom"> </ZoomButton>
+                <div className="sideFlexContainer">
+                    <div className="zoomButtonContainer">
+                        <ZoomButton onClick={this.zoomIn} text="Zoom In"> </ZoomButton>
+                        <ZoomButton onClick={this.zoomOut} text="Zoom Out"> </ZoomButton>
+                        <ZoomButton onClick={this.resetZoom} text="Reset Zoom"> </ZoomButton>
+                    </div>
+                    <div> 
+                        <DirectionButton text="↑" x={500} y={0}> </DirectionButton>
+                        <DirectionButton text="↓" x={500} y={0}> </DirectionButton>
+                        <DirectionButton text="←" x={500} y={0}> </DirectionButton>
+                        <DirectionButton text="→" x={500} y={0}> </DirectionButton>
 
+                    </div>
                 </div>
                 <div>
                     <div className="globe">   
-                        <Globe data={data} globeHandler={this}>  </Globe>;
+                        <Globe data={data} globeHandler={this}/>
                     </div>
                     <div className="scaleKeysBox">
-                        <MapScale data={scaleKeys}> </MapScale>
+                        <MapScale data={scaleKeys}/>
                     </div>
                 </div>
             </div>
