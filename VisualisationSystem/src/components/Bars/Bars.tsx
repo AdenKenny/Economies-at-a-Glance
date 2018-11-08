@@ -1,10 +1,12 @@
 import * as d3 from 'd3';
 import React, { Component } from 'react';
+import NodeGroup from 'react-move/NodeGroup';
 import { scaleLinear } from 'd3-scale';
 import { interpolateLab } from 'd3-interpolate';
 
 import './Bars.css';
 import Tooltip from 'rc-tooltip';
+import Animate from 'rc-animate';
 import 'rc-tooltip/assets/bootstrap.css';
 
 export default class Bars extends Component<{maxValue, scales, margins, data, svgDimensions}> {
@@ -24,6 +26,7 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
        <Tooltip 
        placement='rightTop' 
        overlay={data[i].name + ': ' + Bars.commafier(data[i].value)}
+       mouseLeaveDelay={0}
        >
         <rect
           id={i}
@@ -33,6 +36,7 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
           y={yScale(datum.value)}
           height={height - margins.bottom - scales.yScale(datum.value)}
           width={xScale.bandwidth()}
+          // start={(data,index)}
           />      
         </Tooltip>    
           
