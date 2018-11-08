@@ -7,13 +7,16 @@ import { Component } from 'react';
 import Globe from "../globe/Globe";
 import App from "../../App";
 import MapScale from "../MapScale/MapScale";
+import CountryView from "../../pages/countryInfo/CountryInfo";
 
-class GlobeHandler extends Component<{ indicator: string }> {
+class GlobeHandler extends Component<{ indicator: string, changeView:any }> {
 
     private abrevToCountry = {};
 
-    constructor(props) {
-        super(props);
+    constructor (props, state) {
+        super(props, state);
+
+       
     }
 
     /* Load in the abreveations to associate them with data from the database
@@ -27,6 +30,10 @@ class GlobeHandler extends Component<{ indicator: string }> {
             const res = (jsonData[name]);
             this.abrevToCountry[name] = res; // Set the abrev to a country.
         });
+    }
+
+    handleChange(){
+
     }
 
     render() {
@@ -48,7 +55,7 @@ class GlobeHandler extends Component<{ indicator: string }> {
 
         return (
             <div>
-                <Globe data={data}> </Globe>
+                <Globe data={data} changeView = {this.props.changeView}> </Globe>
                 <MapScale data={scaleKeys}> </MapScale>
             </div>
         );
