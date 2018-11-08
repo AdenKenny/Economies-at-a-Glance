@@ -150,7 +150,6 @@ export default class DataHandler {
     }
 
     allocate = (countries: {name: string, value}[], steps, fields) => {
-
         const data = [];
         countries.forEach(e => {
             const val = e.value;

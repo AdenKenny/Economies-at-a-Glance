@@ -7,6 +7,7 @@ import { Component } from 'react';
 import Globe from "../globe/Globe";
 import App from "../../App";
 import MapScale from "../MapScale/MapScale";
+import CountryView from "../../pages/countryInfo/CountryInfo";
 
 import "./GlobeHandler.css";
 import DataHandler from "src/util/dataHandler";
@@ -14,7 +15,7 @@ import ZoomButton from "../ZoomButton/ZoomButton";
 import { Button } from "@material-ui/core";
 import DirectionButton from "../DirectionButton/DirectionButton";
 
-class GlobeHandler extends Component<{ indicator: string }> {
+class GlobeHandler extends Component<{ indicator: string}> {
 
     private abrevToCountry = {};
 
@@ -26,7 +27,6 @@ class GlobeHandler extends Component<{ indicator: string }> {
     constructor(props) {
         super(props);
     }
-
     /* Load in the abreveations to associate them with data from the database
         This allows the association of indicators to the countries on the map.
     */
@@ -54,6 +54,10 @@ class GlobeHandler extends Component<{ indicator: string }> {
 
     pan = (x: number, y: number): void => {
         this.panF(x, y);
+    }
+
+    handleChange = () => {
+
     }
 
     render() {
