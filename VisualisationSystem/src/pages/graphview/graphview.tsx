@@ -51,7 +51,7 @@ export default class GraphView extends Component<{ countries: any, indicator: st
             <div className="body">
                 <ChartHandler graphedCountries={this.graphedCountries} indicator={this.state.indicator} ref={(child) => this.chart = child}/>
                 <div className="infoPane">
-                    <div className = "titleDiv"><text>Country Select</text></div>
+                    <div className = "titleDiv">Country Select</div>
                     <div className = "selectionDiv"><DropdownTreeSelect className="selector" data={this.countries}
                         onChange={this.onChange} selected={this.graphedCountries} /></div>
                     

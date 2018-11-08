@@ -20,7 +20,9 @@ export default class DataHandler {
                     name: "$ppp",
                     field: "years",
                     needsYear: true,
-                    direction: true
+                    direction: true,
+                    prefix: '$',
+                    suffix: ''
                 };
 
             case "unemploymentAbsolute":
@@ -28,7 +30,9 @@ export default class DataHandler {
                     name: "$unemployment",
                     field: "years",
                     needsYear: true,
-                    direction: false
+                    direction: false,
+                    prefix: '',
+                    suffix: '%'
                 };
 
             case "unemploymentRank":
@@ -36,7 +40,9 @@ export default class DataHandler {
                     name: "$unemployment",
                     field: "rank",
                     needsYear: false,
-                    direction: false
+                    direction: false,
+                    prefix: '#',
+                    suffix: ''
                 };
 
             case "inflationRank":
@@ -44,7 +50,9 @@ export default class DataHandler {
                     name: "$inflation",
                     field: "rank",
                     needsYear: false,
-                    direction: false
+                    direction: false,
+                    prefix: '#',
+                    suffix: ''
                 };
 
             case "inflationAbsolute":
@@ -52,7 +60,9 @@ export default class DataHandler {
                     name: "$inflation",
                     field: "years",
                     needsYear: true,
-                    direction: false
+                    direction: false,
+                    prefix: '',
+                    suffix: '%'
                 };
 
 
@@ -119,8 +129,7 @@ export default class DataHandler {
         };
     }
 
-    getSteps = (countries: {name: string, value}[], range, direction) => {
-        const data = [];
+    getSteps = (range) => {
 
         const numberOfRanges: number = 7;
         const step: number = range.range / numberOfRanges;
@@ -129,18 +138,55 @@ export default class DataHandler {
         for (let i = 0; i < numberOfRanges; i++) {
             steps.push(range.min + step * i);
         }
+        return steps;
+    }
 
+    allocate = (countries: {name: string, value}[], steps, fields) => {
+
+        const data = [];
         countries.forEach(e => {
             const val = e.value;
 
             if (val === undefined) {
+                data[this.abrevToCountry[e.name]] = {
+                    name: e.name,
+                    value: "No data"
+                }
                 return;
             }
 
-            for (let i = numberOfRanges - 1; i >= 0; i--) {
+            let valueString = val + "";
+
+            if (this.replaceZeroes(valueString, 12)) {
+                valueString = valueString.substring(0, valueString.length - 12) + 't';
+            }
+            else if (this.replaceZeroes(valueString, 9)) {
+                valueString = valueString.substring(0, valueString.length - 9) + 'b';
+            }
+            else if (this.replaceZeroes(valueString, 6)) {
+                valueString = valueString.substring(0, valueString.length - 6) + 'm';
+            }
+            else if (this.replaceZeroes(valueString, 3)) {
+                valueString = valueString.substring(0, valueString.length - 3) + 'k';
+            }
+
+            let decimal = valueString.search(/\./);
+            if (decimal === -1) {
+                decimal = valueString.length - 1;
+            }
+
+            for (let i = decimal - 3; i > 0; i-=3) {
+                valueString = valueString.substring(0, i) + ',' + valueString.substring(i, valueString.length);
+            }
+
+            valueString = fields.prefix + valueString + fields.suffix;
+
+            for (let i = steps.length - 1; i >= 0; i--) {
                 if (val > steps[i]) {
-                    const place = direction ? i + 1 : numberOfRanges - i;
+                    const place = fields.direction ? i + 1 : steps.length - i;
                     data[this.abrevToCountry[e.name]] = {
+                        name: e.name,
+                        value: valueString,
                         fillKey: place + ""
                     };
                     break;
@@ -149,5 +195,9 @@ export default class DataHandler {
         });
 
         return data;
+    }
+
+    replaceZeroes = (value, number) => {
+        return value.length > number && value.substring(value.length - number, value.length).replace(/0/g, '').length === 0;
     }
 }
