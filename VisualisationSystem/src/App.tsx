@@ -135,7 +135,7 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
                 indicator: val.value
             });
         }
-    }
+    } 
 
     public render() {
         return (
