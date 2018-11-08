@@ -95,6 +95,14 @@ export default class DataHandler {
             return fieldOrMap;
         }
 
+        for (let i = 2017; i >= 2011; --i) {
+            const data = fieldOrMap.get(i);
+            
+            if (data !== undefined) {
+                return data;
+            }
+        }
+
         return fieldOrMap.get(2017);
     }
 

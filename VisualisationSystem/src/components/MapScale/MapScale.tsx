@@ -14,12 +14,9 @@ class MapScale extends Component<{data: string[]}> {
 
         const scaleKeys: string[] = this.props.data;
         
-        console.log(scaleKeys.length);
-
         if (scaleKeys.length == 7) { // Make sure there are the correct number of scale keys.
             return (
                 <div className="scaleBox">
-                    <ul> 
                         <ScaleBox scaleLabel="No Data" className="default"> </ScaleBox>
                         <ScaleBox scaleLabel={"<= " + scaleKeys[0]} className="one"> </ScaleBox>
                         <ScaleBox scaleLabel={scaleKeys[1]} className="two"> </ScaleBox>
@@ -28,7 +25,6 @@ class MapScale extends Component<{data: string[]}> {
                         <ScaleBox scaleLabel={scaleKeys[4]} className="five"> </ScaleBox>
                         <ScaleBox scaleLabel={scaleKeys[5]} className="six"> </ScaleBox>
                         <ScaleBox scaleLabel={">= " + scaleKeys[6]} className="seven"> </ScaleBox> 
-                    </ul>
                 </div>
             );
         }
