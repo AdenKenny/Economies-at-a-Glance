@@ -1,0 +1,17 @@
+.side divider {
+    background-color: #ABABAB;
+    font-weight: 600;
+} 
+	
+
+.Side-menu-custom .item {
+		background-color: #CCC;
+}
+.Side-menu-custom .item-level-1 .item-label { 
+			font-style: italic;
+		}
+
+ .Side-menu-custom.item-level-2 .item-label {
+			font-size: 10px;
+		}
+	

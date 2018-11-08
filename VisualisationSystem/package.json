@@ -21,6 +21,7 @@
     "react-move": "^2.8.0",
     "react-scripts-ts": "2.17.0",
     "react-select": "^2.1.1",
+    "react-sidemenu": "^1.0.4",
     "react-table": "^6.8.6",
     "semantic-ui-react": "^0.83.0",
     "tooltip": "^1.6.1",
