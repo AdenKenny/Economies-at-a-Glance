@@ -9,8 +9,15 @@
 .flexContainer {
     display: flex;
     flex-direction: row;
+    width: 90%;
 }
 
 .zoomButtonContainer {
-    width: 8%;
+    width: 100%;
+}
+
+.sideFlexContainer {
+    display: flex;
+    flex-direction: column;
+    width: 12%;
 }

@@ -55,6 +55,7 @@ class Globe extends Component<{data: any, globeHandler: GlobeHandler}> {
         this.globeHandler.zoomInF = this.zoomIn;
         this.globeHandler.zoomOutF = this.zoomOut;
         this.globeHandler.zoomResetF = this.zoomReset;
+        this.globeHandler.panF = this.pan;
 
         this.map = map;
     }
@@ -77,6 +78,13 @@ class Globe extends Component<{data: any, globeHandler: GlobeHandler}> {
 
     zoomReset = () => {
         this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", "scale(1)");
+    }
+
+    pan = (x: number, y: number) => {
+
+        const translate: string = "translate(" + x.toString + "," + y.toString + ")";
+
+        this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", translate);
     }
 
     render() {
