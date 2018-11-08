@@ -8,10 +8,18 @@ import Globe from "../globe/Globe";
 import App from "../../App";
 import MapScale from "../MapScale/MapScale";
 
+import "./GlobeHandler.css";
+import DataHandler from "src/util/dataHandler";
+import ZoomButton from "../ZoomButton/ZoomButton";
+
 class GlobeHandler extends Component<{ indicator: string }> {
 
     private abrevToCountry = {};
 
+    zoomInF;
+    zoomOutF;
+    zoomResetF;
+    
     constructor(props) {
         super(props);
     }
@@ -29,8 +37,20 @@ class GlobeHandler extends Component<{ indicator: string }> {
         });
     }
 
+    zoomIn = () => {
+        this.zoomInF();
+    }
+
+    zoomOut = () => {
+        this.zoomOutF();
+    }
+
+    resetZoom = () => {
+        this.zoomResetF();
+    }
+
     render() {
-        const dataHandler = App.dataHandler;
+        const dataHandler: DataHandler = App.dataHandler;
         const countries = Array.from(App.countryData.values());
         const fields = dataHandler.getFields(countries, this.props.indicator);
         const unrefined = dataHandler.getData(countries, fields);
@@ -41,15 +61,28 @@ class GlobeHandler extends Component<{ indicator: string }> {
         let scaleKeys = steps.map(step => {
             return Math.round(step).toLocaleString();
         });
+
         if (!fields.direction) {
             scaleKeys = scaleKeys.reverse(); // Reverse to get the correct scale keys.
         }
 
-
+        
         return (
-            <div>
-                <Globe data={data}> </Globe>
-                <MapScale data={scaleKeys}> </MapScale>
+            <div className="flexContainer">
+                <div className="zoomButtonContainer">
+                    <ZoomButton onClick={this.zoomIn} text="Zoom In"> </ZoomButton>
+                    <ZoomButton onClick={this.zoomOut} text="Zoom Out"> </ZoomButton>
+                    <ZoomButton onClick={this.resetZoom} text="Reset Zoom"> </ZoomButton>
+
+                </div>
+                <div>
+                    <div className="globe">   
+                        <Globe data={data} globeHandler={this}>  </Globe>;
+                    </div>
+                    <div className="scaleKeysBox">
+                        <MapScale data={scaleKeys}> </MapScale>
+                    </div>
+                </div>
             </div>
         );
 
