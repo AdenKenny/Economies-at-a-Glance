@@ -26,7 +26,7 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
         
        <Tooltip 
        placement='rightTop' 
-       overlay={datum.name + ': ' + Bars.commafier(datum.value)}
+       overlay={datum.name + ': ' + Bars.numberFormatter(datum.value)}
        mouseLeaveDelay={0}
        >
         <rect
