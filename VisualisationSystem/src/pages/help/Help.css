@@ -1,6 +1,8 @@
-.side divider {
+.Side-menu {
     background-color: #ABABAB;
-    font-weight: 600;
+	font-weight: 600;
+	width :20%;
+	height:100%;
 } 
 	
 

@@ -19,33 +19,25 @@ const mapView = "Map View is a map of the world in which data is shown depending
     + "  Secondly, the map can pan via...\n"
     + "  Lastly, the map allows a country to be clicked that will shown all relitive information about the clicked country, including everything shown from the tool bar's Value drop down.\n\n\n"
 
+const graphView = "";
+
 
 const items = [
     { divider: true, label: 'Main navigation', value: 'main-nav' },
     {
-        label: 'item 1', value: 'item1', icon: 'fa-search',
-        children: [
-            {
-                label: 'item 1.1', value: 'item1.1', icon: 'fa-snapchat',
-                children: [
-                    { label: 'item 1.1.1', value: 'item1.1.1', icon: 'fa-anchor' },
-                    { label: 'item 1.1.2', value: 'item1.1.2', icon: 'fa-bar-chart' }]
-            },
-            { label: 'item 1.2', value: 'item1.2' }]
+        label: 'ToolBar', value: 'intro',
+ 
     },
     {
-        label: 'item 2', value: 'item2', icon: 'fa-automobile',
-        children: [
-            {
-                label: 'item 2.1', value: 'item2.1',
-                children: [
-                    { label: 'item 2.1.1', value: 'item2.1.1' },
-                    { label: 'item 2.1.2', value: 'item2.1.2' }]
-            },
-            { label: 'item 2.2', value: 'item2.2' }]
+        label: 'Map View', value: 'mv',
+     
+    },
+    {
+        label: 'Graph View', value: 'gv',
+     
     },
     { divider: true, label: 'Motors', value: 'motors-nav' },
-    { label: 'item 3', value: 'item3', icon: 'fa-beer' }
+    { label: 'item 3', value: 'item3' }
 ];
 export default class Help extends Component<{}> {
 
@@ -62,8 +54,11 @@ export default class Help extends Component<{}> {
     render() {
         return (
             <div>
-                <SideMenu className = "side"  items={items} renderMenuItemContent={(item) =>
-                    (<span><strong style={{ color: "red" }}>{item.label}</strong></span>)} />
+                <SideMenu className = "side"  items={items}
+                 onMenuItemClick={(value) => {
+                     console.log(value);
+                 }} 
+                 />
                 <div></div>
             </div>
 
