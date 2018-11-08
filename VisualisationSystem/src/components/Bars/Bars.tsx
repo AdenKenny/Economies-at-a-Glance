@@ -21,22 +21,24 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
 
     const bars = [];
     data.forEach((datum, i) => {
+      const value = datum.value !== undefined ? datum.value : 0;
       bars.push(
         
        <Tooltip 
        placement='rightTop' 
-       overlay={datum.name + ': ' + Bars.numberFormatter(datum.value)}
+       overlay={datum.name + ': ' + Bars.commafier(datum.value)}
        mouseLeaveDelay={0}
        >
-          <rect
-            id={i}
-            key={i}
-            className='bars' 
-            x={xScale(datum.name)}
-            y={yScale(datum.value)}
-            height={height - margins.bottom - scales.yScale(datum.value)}
-            width={xScale.bandwidth()}
-            />
+        <rect
+          id={i}
+          key={i * 2 + 1}
+          className='bars' 
+          x={xScale(datum.name)}
+          y={yScale(value)}
+          height={height - margins.bottom - scales.yScale(value)}
+          width={xScale.bandwidth()}
+          // start={(data,index)}
+          />      
         </Tooltip>    
           
       );

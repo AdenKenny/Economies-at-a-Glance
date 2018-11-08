@@ -39,7 +39,12 @@ class Globe extends Component<{data: any}> {
                     "6": "#C5642F", 
                     "7": "#A04B27", 
                 }, 
-                data: this.props.data
+                data: this.props.data,
+                geographyConfig: {
+                    popupTemplate: (geography, data) => {
+                        return '<div class="hoverinfo"><strong>' + data.name + '<br>' + data.value + '</strong></div>';
+                    }
+                }
             }
         );
     }
