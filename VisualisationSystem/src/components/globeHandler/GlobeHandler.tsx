@@ -65,9 +65,9 @@ class GlobeHandler extends Component<{ indicator: string}, {countryInfo: any}> {
     }
 
     changeView = (country: string) => {
-        console.log(country);
-        var c: any = country.toLowerCase();
         
+        var c: any = country.toLowerCase();
+        console.log(c);
         var countryOb = App.countryData.get(c)
 
         this.setState({

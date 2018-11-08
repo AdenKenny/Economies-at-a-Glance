@@ -9,10 +9,10 @@ import logo from './logo.svg';
 import Select from 'react-select';
 import NavBar from "./components/navBar/NavBar"
 import DataHandler from './util/dataHandler';
-
+import Help from "./pages/help/Help";
 const countryList = [];
 
-class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
+class App extends React.Component<{}, { view: any, dataLoaded: boolean, helpView: any, viewStore: any }> {
 
     private db: DatabaseModule;
     public static countryData: Map<string | null, any>;
@@ -36,7 +36,9 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
 
         this.state = {
             view: undefined,
-            dataLoaded: false
+            dataLoaded: false,
+            helpView: <Help />,
+            viewStore: undefined
         };
     }
     // const data = {
@@ -58,38 +60,40 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
     componentDidMount() {
         this.db.readFromDb().then(country => {
             App.countryData = country;
-            var seenReg:any = [];
-           // var data: any = {
-              //  children: []
-          //  };
+            var seenReg: any = [];
+            // var data: any = {
+            //  children: []
+            //  };
             App.countryData.forEach((value, key) => {
-                if(!seenReg.includes(value.$region)){
+                if (!seenReg.includes(value.$region)) {
 
-                    this.countries.push({ value: value.$region, label: value.$region, 
-                        children: [ 
-                        { value: key, label: value.$name } 
-                    ] });
+                    this.countries.push({
+                        value: value.$region, label: value.$region,
+                        children: [
+                            { value: key, label: value.$name }
+                        ]
+                    });
                     seenReg.push(value.$region);
                 }
-                else{
-                    for(let region of this.countries){
-                        if(region.value === value.$region){
-                            region.children.push({ value: key, label: value.$name } )
+                else {
+                    for (let region of this.countries) {
+                        if (region.value === value.$region) {
+                            region.children.push({ value: key, label: value.$name })
                         }
                     }
                 }
-            
+
                 //this.countries.push({ value: value, label: value })
             });
 
             App.dataHandler = new DataHandler(App.countryData);
-            
+
             if (this.mapView === undefined) {
-                this.mapView = <MapView indicator="ppp"/>;
+                this.mapView = <MapView indicator="ppp" />;
             }
 
             if (this.graphView === undefined) {
-                this.graphView = <GraphView countries={this.countries} indicator = "ppp" ref={(child)=>{this.graphClass = child;}}/>;
+                this.graphView = <GraphView countries={this.countries} indicator="ppp" ref={(child) => { this.graphClass = child; }} />;
             }
 
             this.setState({
@@ -112,11 +116,11 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
         }
         if (value.label === 'Map View') {
             this.setState({ view: this.mapView });
-            this.navBar.setState({isMap: true});
+            this.navBar.setState({ isMap: true });
         }
         else if (value.label === 'Graph View') {
             this.setState({ view: this.graphView });
-            this.navBar.setState({isMap: false});
+            this.navBar.setState({ isMap: false });
         }
     }
 
@@ -125,9 +129,9 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
             return;
         }
 
-        if(this.navBar.state.isMap){
+        if (this.navBar.state.isMap) {
             this.setState({
-                view: <MapView indicator={val.value}/>
+                view: <MapView indicator={val.value} />
             });
         }
         else {
@@ -135,14 +139,35 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean }> {
                 indicator: val.value
             });
         }
-    } 
+    }
+
+    private toggleHelp = (isHelp) => {
+        console.log(isHelp);
+        console.log(this.state);
+        //if help iis supposed to be showing then store the last view and show help
+        if (isHelp) {
+            this.setState({
+                viewStore: this.state.view,
+                view: this.state.helpView
+            })
+
+            console.log(this.state);
+        }
+        //if closing help, then get last view and show it
+        else {
+            this.setState({                
+                view: this.state.viewStore
+            })
+        }
+    }
+
 
     public render() {
         return (
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Economies at a Glance</h1>
-                    <NavBar changeValue={this.changeValue} changeView={this.changeView} ref={(child) => {this.navBar = child;}}/>
+                    <NavBar changeValue={this.changeValue} changeView={this.changeView} toggleHelp={this.toggleHelp} ref={(child) => { this.navBar = child; }} />
                 </header>
                 {
                     this.state.dataLoaded ? this.state.view : <div></div>
