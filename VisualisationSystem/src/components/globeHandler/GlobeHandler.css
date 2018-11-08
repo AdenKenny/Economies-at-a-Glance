@@ -1,0 +1,16 @@
+.globe {
+    padding-left: 5%;
+}
+
+.scaleKeysBox {
+    padding-left: 5%;   
+}
+
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.zoomButtonContainer {
+    width: 8%;
+}

@@ -6,7 +6,7 @@ import "./MapScale.css";
 
 class MapScale extends Component<{data: string[]}> {
 
-    constructor(props) {
+    constructor(props: {data: string[]}) {
         super(props);
     }
 

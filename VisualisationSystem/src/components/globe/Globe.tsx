@@ -1,11 +1,15 @@
 import * as d3 from 'd3';
 import * as React from 'react';
 import { Component } from 'react';
-import DatabaseModule from '../../modules/DatabaseModule';
 import DataMap from "datamaps";
 import "./Globe.css";
+import GlobeHandler from '../globeHandler/GlobeHandler';
 
-class Globe extends Component<{data: any}> {
+class Globe extends Component<{data: any, globeHandler: GlobeHandler}> {
+
+    private globeHandler: GlobeHandler = this.props.globeHandler;
+
+    private map;
 
     constructor(props, state) {
         super(props, state);
@@ -47,6 +51,12 @@ class Globe extends Component<{data: any}> {
                 }
             }
         );
+
+        this.globeHandler.zoomInF = this.zoomIn;
+        this.globeHandler.zoomOutF = this.zoomOut;
+        this.globeHandler.zoomResetF = this.zoomReset;
+
+        this.map = map;
     }
 
     componentDidMount() {
@@ -55,6 +65,18 @@ class Globe extends Component<{data: any}> {
 
     componentDidUpdate() {
         this.do();
+    }
+
+    zoomIn = () => {
+        this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", "scale(1.5)");
+    }
+
+    zoomOut = () => {
+        this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", "scale(0.75)");
+    }
+
+    zoomReset = () => {
+        this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", "scale(1)");
     }
 
     render() {
