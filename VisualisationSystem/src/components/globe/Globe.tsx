@@ -5,10 +5,14 @@ import DatabaseModule from '../../modules/DatabaseModule';
 import DataMap from "datamaps";
 import "./Globe.css";
 
-class Globe extends Component<{data: any}> {
+class Globe extends Component<{data: any}, {countryView: any}> {
 
-    constructor(props, state) {
+    constructor(props:any, state:any) {
         super(props, state);
+
+        this.state = {
+            countryView: <div id="container" className="mapHolder"></div>
+        };
     }
 
     do = (): void => {
@@ -44,9 +48,20 @@ class Globe extends Component<{data: any}> {
                     popupTemplate: (geography, data) => {
                         return '<div class="hoverinfo"><strong>' + data.name + '<br>' + data.value + '</strong></div>';
                     }
+                },
+                done:  (datamap)=> {
+                    datamap.svg.selectAll('.datamaps-subunit').on('click', (geography, data, data2) => {
+                        console.log(geography.properties.name);
+                        console.log(data2);
+                        this.setState({
+                            countryView: <div><button>YOUR MUM</button></div>
+                        });
+                    });
                 }
             }
+
         );
+
     }
 
     componentDidMount() {
@@ -61,7 +76,7 @@ class Globe extends Component<{data: any}> {
 
         return (
             <div id="map">
-                <div id="container" className="mapHolder"></div>
+                {this.state.countryView}
             </div>
         );
     }
