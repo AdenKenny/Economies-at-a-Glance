@@ -9,15 +9,24 @@ export default class DataHandler {
         Array.from(countries.keys()).forEach(e => {
             const name = countries.get(e).$name;
             const res = (jsonData[name]);
-            this.abrevToCountry[name] = res;
+            this.abrevToCountry[name] = {key: e, name: res};
         });
     }
 
-    getFields = (countries, indicator) => {
+    getFromAbrev = (abrev) => {
+        for (let name in this.abrevToCountry) {
+            const value = this.abrevToCountry[name];
+            if (value.name === abrev) {
+                return value.key;
+            }
+        }
+    }
+
+    getFields = (indicator) => {
         switch (indicator) {
-            case "ppp":
+            case "pppAbsolute":
                 return {
-                    title: "Purchasing Power Parity",
+                    title: "Purchasing Power Parity (USD)",
                     name: "$ppp",
                     field: "years",
                     needsYear: true,
@@ -25,6 +34,39 @@ export default class DataHandler {
                     prefix: '$',
                     suffix: ''
                 };
+
+            case "pppRank":
+                return {
+                    title: "Purchasing Power Parity (Rank)",
+                    name: "$ppp",
+                    field: "rank",
+                    needsYear: false,
+                    direction: false,
+                    prefix: '#',
+                    suffix: ''
+                };
+
+            case "householdIncomeTop":
+                return {
+                    title: "Household Income Share for Top 10% (%)",
+                    name: "$householdIncome",
+                    field: "top",
+                    needsYear: false,
+                    direction: false,
+                    prefix: '',
+                    suffix: '%'
+                }
+
+            case "householdIncomeBottom":
+                return {
+                    title: "Household Income Share for Bottom 10% (%)",
+                    name: "$householdIncome",
+                    field: "bottom",
+                    needsYear: false,
+                    direction: true,
+                    prefix: '',
+                    suffix: '%'
+                }
 
             case "unemploymentAbsolute":
                 return {
@@ -70,6 +112,71 @@ export default class DataHandler {
                     suffix: '%'
                 };
 
+            case "budgetExpenditure":
+                return {
+                    title: "Budget Expenditure (USD)",
+                    name: "$budget",
+                    field: "expenditure",
+                    needsYear: false,
+                    direction: true,
+                    prefix: '$',
+                    suffix: ''
+                };
+
+            case "budgetRevenue":
+                return {
+                    title: "Budget Revenue (USD)",
+                    name: "$budget",
+                    field: "revenue",
+                    needsYear: false,
+                    direction: true,
+                    prefix: '$',
+                    suffix: ''
+                };
+            
+            case "gini":
+                return {
+                    title: "Gini Coefficient",
+                    name: "$gini",
+                    field: "years",
+                    needsYear: true,
+                    direction: false,
+                    prefix: '',
+                    suffix: ''
+                };
+
+            case "populationBelow":
+                return {
+                    title: "Population Below Poverty Line (%)",
+                    name: "$populationBelowPovertyLine",
+                    field: "percent",
+                    needsYear: false,
+                    direction: false,
+                    prefix: '',
+                    suffix: ''
+                }
+
+            case "growthRateAbsolute":
+                return {
+                    title: "Growth Rate (%)",
+                    name: "$growthRate",
+                    field: "years",
+                    needsYear: true,
+                    direction: true,
+                    prefix: '',
+                    suffix: '%'
+                }
+
+            case "growthRateRank":
+                return {
+                    title: "Growth Rate (Rank)",
+                    name: "$growthRate",
+                    field: "rank",
+                    needsYear: false,
+                    direction: false,
+                    prefix: '#',
+                    suffix: ''
+                }
 
             default:
                 console.log(indicator);
@@ -100,7 +207,7 @@ export default class DataHandler {
             return fieldOrMap;
         }
 
-        for (let i = 2017; i >= 2011; --i) {
+        for (let i = 2017; i >= 1992; --i) {
             const data = fieldOrMap.get(i);
             
             if (data !== undefined) {
@@ -112,7 +219,12 @@ export default class DataHandler {
     }
 
     getRange = (countries: {name: string, value}[]) => {
-        const first = countries[0].value;
+        let first;
+        let i = 0;
+        while (first === undefined) {
+            first = countries[i].value;
+            ++i;
+        }
         let min: number = first;
         let max: number = first;
 
@@ -160,14 +272,35 @@ export default class DataHandler {
             const val = e.value;
 
             if (val === undefined) {
-                data[this.abrevToCountry[e.name]] = {
+                data[this.abrevToCountry[e.name].name] = {
                     name: e.name,
                     value: "No data"
                 }
                 return;
             }
 
-            let valueString = val + "";
+            const valueString = this.getValueString(val, fields);
+
+            let place;
+            for (let i = steps.length - 1; i >= 0; i--) {
+                if (val >= steps[i]) {
+                    place = fields.direction ? i + 1 : steps.length - i;
+                    break;
+                }
+            }
+
+            data[this.abrevToCountry[e.name].name] = {
+                name: e.name,
+                value: valueString,
+                fillKey: place + ""
+            };
+        });
+
+        return data;
+    }
+
+    getValueString(value, fields) {
+        let valueString = value + "";
 
             if (this.replaceZeroes(valueString, 12)) {
                 valueString = valueString.substring(0, valueString.length - 12) + 't';
@@ -191,22 +324,7 @@ export default class DataHandler {
                 valueString = valueString.substring(0, i) + ',' + valueString.substring(i, valueString.length);
             }
 
-            valueString = fields.prefix + valueString + fields.suffix;
-
-            for (let i = steps.length - 1; i >= 0; i--) {
-                if (val > steps[i]) {
-                    const place = fields.direction ? i + 1 : steps.length - i;
-                    data[this.abrevToCountry[e.name]] = {
-                        name: e.name,
-                        value: valueString,
-                        fillKey: place + ""
-                    };
-                    break;
-                }
-            }
-        });
-
-        return data;
+            return fields.prefix + valueString + fields.suffix;
     }
 
     replaceZeroes = (value, number) => {
