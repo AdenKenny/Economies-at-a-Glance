@@ -4,7 +4,7 @@ import { Component } from 'react';
 import { Button } from "@material-ui/core";
 
 
-class DirectionButton extends Component<{text: string, x: number, y: number}> {
+class DirectionButton extends Component<{onClick: any, text: string, x: number, y: number}> {
 
     constructor(props) {
         super(props);
@@ -13,7 +13,13 @@ class DirectionButton extends Component<{text: string, x: number, y: number}> {
     render() {
         return(
             <div className="directionButton"> 
-                <Button> <b>{this.props.text}</b> </Button>
+                <Button onClick= {() => {
+                    this.props.onClick(this.props.x, this.props.y);    
+                }}> 
+                    <b>
+                        {this.props.text}
+                    </b> 
+                    </Button>
             </div>
         );
     }

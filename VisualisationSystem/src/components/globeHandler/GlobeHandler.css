@@ -33,3 +33,18 @@
     flex-direction: column;
     width: 12%;
 }
+
+.directionContainerFlex {
+    display: flex;
+    flex-direction: row;
+    padding-top: 6%;
+}
+
+.mainDirectionFlex {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonSide {
+    padding-top: 20%;
+}

@@ -16,10 +16,8 @@
     font-size: 2em;
     float: left;
 }
-.filler{
-    width:75%;
-}
-.theSVG{
+.theSVG
+{
    margin:auto;
    /* margin-top: auto;
    margin-bottom:auto;
