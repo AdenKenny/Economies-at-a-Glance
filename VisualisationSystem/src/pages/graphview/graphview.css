@@ -6,19 +6,20 @@
 }
 .infoPane{
     height: 100%;
-    width :20%;
-
+    width: 20%;
 }   
 .titleDiv{
-    height:13.5%;
-    width:100%;
-    
-    display:flex;
+    width: 100%;
+    display: flex;
+    text-align: center;
+
 }
 .titleDiv text{
     color:black;
-    margin:auto;
+    margin: auto;
     font-size: 21px;
+    text-align: center;
+
 }
 
 .selectionDiv{
@@ -26,8 +27,7 @@
     height: 350px;
     overflow-y: auto;
     overflow-x:hidden;
-    margin-top: 10%;
-    margin-left: -10%;
+    padding-top: 4%;
 
     text-align: left;
     display:flex;
