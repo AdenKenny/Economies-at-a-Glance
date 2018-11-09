@@ -12,19 +12,28 @@ class MapScale extends Component<{data: string[]}> {
 
     render() {
 
-        const scaleBoxes = [<ScaleBox key={-1} scaleLabel="No Data" className="default"> </ScaleBox>];
-
-        const numbers = ["one", "two", "three", "four", "five", "six", "seven"];
+        const scaleKeys: string[] = this.props.data;
         
-        for (let i = 0; i < this.props.data.length - 1; i++) {
-            scaleBoxes.push(<ScaleBox key={i} scaleLabel={this.props.data[i] + " - " + this.props.data[i + 1]} className={numbers[i]}> </ScaleBox>);
+        if (scaleKeys.length == 7) { // Make sure there are the correct number of scale keys.
+            return (
+                <div className="scaleBox">
+                        <ScaleBox scaleLabel="No Data" className="default"> </ScaleBox>
+                        <ScaleBox scaleLabel={"<= " + scaleKeys[0]} className="one"> </ScaleBox>
+                        <ScaleBox scaleLabel={scaleKeys[1]} className="two"> </ScaleBox>
+                        <ScaleBox scaleLabel={scaleKeys[2]} className="three"> </ScaleBox>
+                        <ScaleBox scaleLabel={scaleKeys[3]} className="four"> </ScaleBox>
+                        <ScaleBox scaleLabel={scaleKeys[4]} className="five"> </ScaleBox>
+                        <ScaleBox scaleLabel={scaleKeys[5]} className="six"> </ScaleBox>
+                        <ScaleBox scaleLabel={">= " + scaleKeys[6]} className="seven"> </ScaleBox> 
+                </div>
+            );
         }
 
         return (
-            <div className="scaleBox">
-                {scaleBoxes}
-            </div>
+            <div> </div>
         );
+
+       
     }
 }
 
