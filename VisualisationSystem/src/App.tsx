@@ -22,6 +22,7 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
     public static graphIndicators;
     
     private indicatorOptions = [
+        [{ value: 'pppPerCapita', label: 'Purchasing Power Parity Per Capita (USD)' }, true],
         [{ value: 'pppAbsolute', label: 'Purchasing Power Parity (USD)' }, true],
         [{ value: 'pppRank', label: 'Purchasing Power Parity (Rank)' }, false],
         [{ value: 'growthRateAbsolute', label: 'Growth Rate (%)'}, true],
@@ -34,8 +35,13 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
         [{ value: 'populationBelow', label: 'Population Below Poverty Line (%)'}, true],
         [{ value: 'householdIncomeTop', label: 'Household Income Share for Top 10% (%)'}, true],
         [{ value: 'householdIncomeBottom', label: 'Household Income Share for Bottom 10% (%)'}, true],
+        [{ value: 'inAgriculture', label: 'Portion of Workforce in Agriculture (%)' }, true],
+        [{ value: 'inIndustry', label: 'Portion of Workforce in Industry (%)' }, true],
+        [{ value: 'inServices', label: 'Portion of Workforce in Services (%)' }, true],
         [{ value: 'unemploymentAbsolute', label: 'Unemployment Rate (%)' }, true],
-        [{ value: 'unemploymentRank', label: 'Unemployment Rate (Rank)' }, false]
+        [{ value: 'unemploymentRank', label: 'Unemployment Rate (Rank)' }, false],
+        [{ value: 'publicDebtAbsolute', label: 'Public Debt (% of GDP)' }, true],
+        [{ value: 'publicDebtRank', label: 'Public Debt (Rank)' }, false]
     ];
 
     private graphClass: any;
@@ -118,11 +124,11 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
             App.dataHandler = new DataHandler(App.countryData);
 
             if (this.mapView === undefined) {
-                this.mapView = <MapView indicator="pppRank" />;
+                this.mapView = <MapView indicator="pppPerCapita" />;
             }
 
             if (this.graphView === undefined) {
-                this.graphView = <GraphView countries={this.countries} indicator="pppRank" ref={(child) => { this.graphClass = child; }} />;
+                this.graphView = <GraphView countries={this.countries} indicator="pppPerCapita" ref={(child) => { this.graphClass = child; }} />;
             }
 
             this.setState({
