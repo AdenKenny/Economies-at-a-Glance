@@ -61,6 +61,7 @@
 
 .yLabel {
     float: left;
+
 }
 
 .body{
@@ -74,4 +75,23 @@
   content: "";
     display: table;
     clear: both;
+}
+
+.bodyFlex {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.xLabel {
+    height: 3%;
+
+}
+
+.xHolder {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding-top: 4%;
+
 }
