@@ -6,6 +6,8 @@ import ReactTable from "react-table";
 
 import { Icon, Label, Menu, Table } from 'semantic-ui-react';
 
+import './CountryInfo.css';
+
 class CountryInfo extends Component<{ country: any }> {
 
 
@@ -25,8 +27,8 @@ class CountryInfo extends Component<{ country: any }> {
 
       return (
         <Table.Row key={i}>
-          <Table.Cell>
-            <Label ribbon>{fields.title}</Label>
+          <Table.Cell className="cell">
+            <Label>{fields.title}</Label>
           </Table.Cell>
           <Table.Cell>{valueString}</Table.Cell>
         </Table.Row>
@@ -35,8 +37,8 @@ class CountryInfo extends Component<{ country: any }> {
 
     return (
       <div className="info">
-        <h3>{this.props.country.name}</h3>
-        <Table celled>
+        <div className="country"><h3>{this.props.country.name}</h3></div>
+        <Table celled padded>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Category</Table.HeaderCell>
@@ -44,7 +46,7 @@ class CountryInfo extends Component<{ country: any }> {
             </Table.Row>
           </Table.Header>
 
-          <Table.Body className="tableBody">
+          <Table.Body>
             {rows}
           </Table.Body>
 
