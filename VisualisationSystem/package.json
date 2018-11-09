@@ -4,12 +4,8 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.3.2",
-    "@types/chai": "^4.1.7",
     "@types/d3": "^3.5.34",
-    "@types/mocha": "^5.2.5",
     "@types/react-select": "^2.0.6",
-    "@types/sinon": "^5.0.5",
-    "chai": "^4.2.0",
     "d3": "3.5.5",
     "d3-axis": "^1.0.12",
     "d3-scale": "^2.1.2",
@@ -17,7 +13,6 @@
     "datamaps": "^0.5.9",
     "firebase": "^5.5.1",
     "material-ui-datatables": "^0.18.2",
-    "mocha": "^5.2.0",
     "rc-animate": "^2.5.4",
     "rc-tooltip": "^3.7.3",
     "react": "^16.5.1",
@@ -30,14 +25,12 @@
     "react-table": "^6.8.6",
     "semantic-ui-react": "^0.83.0",
     "tooltip": "^1.6.1",
-    "topojson": "^3.0.2",
-    "ts-node": "^7.0.1"
+    "topojson": "^3.0.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
-    "test": "mocha -r ts-node/register src/testing/tests.tsx",
-    "test2": "react-scripts-ts test --env=jsdom",
+    "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
