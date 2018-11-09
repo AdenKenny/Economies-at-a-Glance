@@ -140,6 +140,7 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
 
 
     private changeView = (value: { value: string, label: string }) => {
+                
         if (!this.state.dataLoaded) {
             return;
         }
@@ -151,6 +152,8 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
             this.setState({ view: this.graphView });
             this.navBar.setState({ isMap: false });
         }
+
+        this.changeValue({value:"pppRank"});
     }
 
     private changeValue = (val) => {
