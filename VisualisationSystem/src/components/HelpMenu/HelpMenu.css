@@ -1,0 +1,30 @@
+.helpContainer {
+    position: fixed;
+    width: 50%;
+    left: 300px;
+    align-self: center;
+    height: 700px;
+    top: 180px;
+    z-index: 100;
+    background: white;
+    border: solid black;
+    border-width: thick;
+}
+
+.helpTitle {
+   font-size: 28px;
+   text-align: center; 
+   padding-bottom: 5%;
+   padding-top: 3%;
+}
+
+.helpFlexContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 90%;
+}
+
+.helpTextContainer {
+    width: 90%;
+}

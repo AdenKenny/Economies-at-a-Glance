@@ -31,8 +31,8 @@ class NavBar extends Component<{ changeValue: any, changeView: any, toggleHelp: 
         const indicators = this.state.isMap ? App.mapIndicators : App.graphIndicators;
         return (
             <div className="selectDiv">
-                <Select className="select" placeholder="Select Value" isDisabled={this.state.isHelp} options={indicators} onChange={(val) => this.props.changeValue(val)} />
                 <Select className="select" placeholder="Select View" isDisabled={this.state.isHelp} options={this.viewOptions} onChange={(val: { value: string, label: string }) => this.props.changeView(val)} />
+                <Select className="select" placeholder="Select Indicator" isDisabled={this.state.isHelp} options={indicators} onChange={(val) => this.props.changeValue(val)} />
                 <Button variant="contained" color="primary" onClick={() => {
                     this.props.toggleHelp(!this.state.isHelp);
                     this.setState({

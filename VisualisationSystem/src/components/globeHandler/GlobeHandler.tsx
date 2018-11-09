@@ -16,7 +16,7 @@ import { Button } from "@material-ui/core";
 import DirectionButton from "../DirectionButton/DirectionButton";
 import CountryInfo from "../../pages/countryInfo/CountryInfo";
 
-class GlobeHandler extends Component<{ indicator: string}, {countryInfo: any}> {
+class GlobeHandler extends Component<{ indicator: string }, { countryInfo: any }> {
 
     private abrevToCountry = {};
 
@@ -24,7 +24,7 @@ class GlobeHandler extends Component<{ indicator: string}, {countryInfo: any}> {
     zoomOutF: () => void;
     zoomResetF: () => void;
     panF: (x: number, y: number) => void;
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -105,20 +105,33 @@ class GlobeHandler extends Component<{ indicator: string}, {countryInfo: any}> {
                             <ZoomButton onClick={this.zoomOut} text="Zoom Out"> </ZoomButton>
                             <ZoomButton onClick={this.resetZoom} text="Reset Zoom"> </ZoomButton>
                         </div>
-                        <div> 
-                            <DirectionButton text="↑" x={500} y={0}> </DirectionButton>
-                            <DirectionButton text="↓" x={500} y={0}> </DirectionButton>
-                            <DirectionButton text="←" x={500} y={0}> </DirectionButton>
-                            <DirectionButton text="→" x={500} y={0}> </DirectionButton>
+                        <div className="directionContainerFlex">
+                            <div className="buttonSide">
+                                <DirectionButton text="◄" x={100} y={0} onClick={this.pan}> </DirectionButton>
+                            </div>
+                            <div className="mainDirectionFlex">
+                                <div>
+                                    <DirectionButton text="▲" x={0} y={100} onClick={this.pan} />
+                                </div>
+                                <div>
+                                    <DirectionButton text="○" x={0} y={0} onClick={() => { }} />
+                                </div>
 
+                                <div>
+                                    <DirectionButton text="▼" x={0} y={-100} onClick={this.pan}> </DirectionButton>
+                                </div>
+                            </div>
+                            <div className="buttonSide">
+                                <DirectionButton text="►" x={-100} y={0} onClick={this.pan}> </DirectionButton>
+                            </div>
                         </div>
                     </div>
                     <div>
-                        <div className="globe">   
-                            <Globe data={data} globeHandler={this} changeView ={this.changeView}/>
+                        <div className="globe">
+                            <Globe data={data} globeHandler={this} changeView={this.changeView} />
                         </div>
                         <div className="scaleKeysBox">
-                            <MapScale data={scaleKeys}/>
+                            <MapScale data={scaleKeys} />
                         </div>
                     </div>
                     {this.state.countryInfo != undefined ? this.state.countryInfo :<div></div> }

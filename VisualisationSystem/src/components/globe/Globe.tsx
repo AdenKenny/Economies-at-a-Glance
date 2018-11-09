@@ -12,12 +12,18 @@ class Globe extends Component<{data: any, globeHandler: GlobeHandler, changeView
 
     private map;
 
+    private scale: number;
+    private x: number;
+    private y: number;
 
     constructor(props: any, state: any) {
         super(props, state);
     }
 
     do = (): void => {
+        this.scale = 1.0;
+        this.x = 0;
+        this.y = 0;
 
         const container: HTMLElement = document.getElementById('container');
 
@@ -82,21 +88,37 @@ class Globe extends Component<{data: any, globeHandler: GlobeHandler, changeView
     }
 
     zoomIn = () => {
-        this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", "scale(1.5)");
+
+        this.scale += 0.5;
+
+        const translate: string = "scale(" + this.scale.toString()+ ")" + "translate(" + this.x.toString() + "," + this.y.toString() + ")";
+
+        this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", translate);
     }
 
     zoomOut = () => {
-        this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", "scale(0.75)");
+        this.scale -= 0.5;
+        const translate: string = "scale(" + this.scale.toString()+ ")" + "translate(" + this.x.toString() + "," + this.y.toString() + ")";
+
+        this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", translate);
     }
 
     zoomReset = () => {
-        this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", "scale(1)");
+
+        this.scale = 1;
+        this.x = 0;
+        this.y = 0;
+        const translate: string = "scale(" + this.scale.toString()+ ")" + "translate(" + this.x.toString() + "," + this.y.toString() + ")";
+
+        this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", translate);
     }
 
     pan = (x: number, y: number) => {
 
-        const translate: string = "translate(" + x.toString + "," + y.toString + ")";
+        this.x += x;
+        this.y += y;
 
+        const translate: string = "scale(" + this.scale.toString()+ ")" + "translate(" + this.x.toString() + "," + this.y.toString() + ")";
         this.map.svg.selectAll(".datamaps-subunits").transition().duration(750).attr("transform", translate);
     }
 

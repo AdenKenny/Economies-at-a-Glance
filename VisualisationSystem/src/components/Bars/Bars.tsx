@@ -22,11 +22,13 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
     const bars = [];
     data.forEach((datum, i) => {
       const value = datum.value !== undefined ? datum.value : 0;
+      const tooltipLocation = value > 0 ? 'rightTop' : 'top';
+      
       bars.push(
         
        <Tooltip 
-       placement='rightTop' 
-       overlay={datum.name + ': ' + Bars.numberFormatter(datum.value)}
+       placement={tooltipLocation} 
+       overlay={datum.name + ': ' + Bars.numberFormatter(value)}
        mouseLeaveDelay={0}
        >
         <rect
@@ -37,7 +39,6 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
           y={yScale(value)}
           height={height - margins.bottom - scales.yScale(value)}
           width={xScale.bandwidth()}
-          // start={(data,index)}
           />      
         </Tooltip>    
           
@@ -52,8 +53,8 @@ export default class Bars extends Component<{maxValue, scales, margins, data, sv
   }
 
   static numberFormatter = (input: number) => {
-    if(input === undefined){
-      return 0;
+    if(input < 1){
+      return 'No data';
     } else if (input > 999999999) {
       return (input / 1000000000).toLocaleString(navigator.language) + 'b';
     } else if (input > 999999) {
