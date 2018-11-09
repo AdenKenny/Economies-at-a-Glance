@@ -370,29 +370,34 @@ export default class DataHandler {
     getValueString(value, fields) {
         let valueString = value + "";
 
-            if (this.replaceZeroes(valueString, 12)) {
-                valueString = valueString.substring(0, valueString.length - 12) + 't';
-            }
-            else if (this.replaceZeroes(valueString, 9)) {
-                valueString = valueString.substring(0, valueString.length - 9) + 'b';
-            }
-            else if (this.replaceZeroes(valueString, 6)) {
-                valueString = valueString.substring(0, valueString.length - 6) + 'm';
-            }
-            else if (this.replaceZeroes(valueString, 3)) {
-                valueString = valueString.substring(0, valueString.length - 3) + 'k';
-            }
+        let step = 0;
 
-            let decimal = valueString.search(/\./);
-            if (decimal === -1) {
-                decimal = valueString.length - 1;
-            }
+        if (this.replaceZeroes(valueString, 12)) {
+            valueString = valueString.substring(0, valueString.length - 12) + 't';
+        }
+        else if (this.replaceZeroes(valueString, 9)) {
+            valueString = valueString.substring(0, valueString.length - 9) + 'b';
+        }
+        else if (this.replaceZeroes(valueString, 6)) {
+            valueString = valueString.substring(0, valueString.length - 6) + 'm';
+        }
+        else if (this.replaceZeroes(valueString, 3)) {
+            valueString = valueString.substring(0, valueString.length - 3) + 'k';
+        }
+        else {
+            step = 1;
+        }
 
-            for (let i = decimal - 3; i > 0; i-=3) {
-                valueString = valueString.substring(0, i) + ',' + valueString.substring(i, valueString.length);
-            }
+        let decimal = valueString.search(/\./);
+        if (decimal === -1) {
+            decimal = valueString.length - 1 + step;
+        }
 
-            return fields.prefix + valueString + fields.suffix;
+        for (let i = decimal - 3; i > 0; i-=3) {
+            valueString = valueString.substring(0, i) + ',' + valueString.substring(i, valueString.length);
+        }
+
+        return fields.prefix + valueString + fields.suffix;
     }
 
     replaceZeroes = (value, number) => {
