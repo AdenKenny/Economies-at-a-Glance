@@ -124,7 +124,6 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
             if (this.graphView === undefined) {
                 this.graphView = <GraphView countries={this.countries} indicator="pppRank" ref={(child) => { this.graphClass = child; }} />;
             }
-
             this.setState({
                 view: this.mapView,
                 dataLoaded: true
@@ -140,7 +139,7 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
 
 
     private changeView = (value: { value: string, label: string }) => {
-                
+            
         if (!this.state.dataLoaded) {
             return;
         }
@@ -152,11 +151,11 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
             this.setState({ view: this.graphView });
             this.navBar.setState({ isMap: false });
         }
-
-        this.changeValue({value:"pppRank"});
     }
 
     private changeValue = (val) => {
+
+
         if (!this.state.dataLoaded) {
             return;
         }
@@ -174,14 +173,13 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
     }
 
     private toggleHelp = (isHelp) => {
+
         //if help is supposed to be showing then store the last view and show help
         if (isHelp) {
             this.setState({
                 viewStore: this.state.view,
                 helpMenuOpen : true,
             });
-
-            console.log(this.state);
         }
         //if closing help, then get last view and show it
         else {

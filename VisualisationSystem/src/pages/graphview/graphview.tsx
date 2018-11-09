@@ -27,7 +27,7 @@ const view = [
     { value: 'YT', label: 'Yearly Trend' },
 ];
 
-export default class GraphView extends Component<{ countries: any, indicator: string}, { indicator }> {
+export default class GraphView extends Component<{ countries: any, indicator: string }, { indicator }> {
 
     private button: any;
     private countries: any[];
@@ -36,7 +36,7 @@ export default class GraphView extends Component<{ countries: any, indicator: st
 
     private chart;
 
-    constructor(props: Readonly<{ countries: any, indicator: string}>, state) {
+    constructor(props: Readonly<{ countries: any, indicator: string }>, state) {
         super(props, state);
         this.graphedCountries = [];
         this.countries = this.props.countries;
@@ -46,16 +46,72 @@ export default class GraphView extends Component<{ countries: any, indicator: st
         };
     }
 
+    getIndicatorName = (rawInd: string): string => {
+
+        console.log(rawInd);
+
+        let ind = "";
+        
+        if (rawInd === "growthRateAbsolute") {
+            ind = "Growth Rate (%)";
+        }
+
+        if (rawInd === "growthRateAbsolute") {
+            ind = "Growth Rate (%)";
+        }
+
+        if (rawInd === "inflationAbsolute") {
+            ind = "Inflation Rate (%)";
+        }
+
+        if (rawInd === "budgetRevenue") {
+            ind = "Revenue (USD)";
+        }
+
+        if (rawInd === "budgetExpenditure") {
+            ind = "Expenditure (USD)";
+        }
+
+        if (rawInd === "gini") {
+            ind = "Gini Index";
+        }
+
+        if (rawInd === "populationBelow") {
+            ind = "Population (%)";
+        }
+
+        if (rawInd === "householdIncomeTop") {
+            ind = "Percentage of Wealth (%)";
+        }
+
+        if (rawInd === "householdIncomeBottom") {
+            ind = "Percentage of Wealth (%)";
+        }
+
+        if (rawInd === "unemploymentAbsolute") {
+            ind = "Unemployment (%)";
+        }
+        
+        return ind;
+    }
+
     render() {
         return (
-            <div className="body">
-                <ChartHandler graphedCountries={this.graphedCountries} indicator={this.state.indicator} ref={(child) => this.chart = child}/>
-                <div className="infoPane">
-                    <div className = "titleDiv"> <b> Country Select </b> </div>
-                    <div className = "selectionDiv"><DropdownTreeSelect className="selector" data={this.countries}
-                        onChange={this.onChange} selected={this.graphedCountries} /></div>
-                    
+            <div className="graphMainFlex">
+                <div className="yLabelContainer">
+                    <div className="yLabel">
+                        {this.getIndicatorName(this.state.indicator)}
+                    </div>
+                </div>
+                <div className="body">
+                    <ChartHandler graphedCountries={this.graphedCountries} indicator={this.state.indicator} ref={(child) => this.chart = child} />
+                    <div className="infoPane">
+                        <div className="titleDiv"> <b> Country Select </b> </div>
+                        <div className="selectionDiv"><DropdownTreeSelect className="selector" data={this.countries}
+                            onChange={this.onChange} selected={this.graphedCountries} /></div>
 
+
+                    </div>
                 </div>
             </div>
         );
@@ -67,7 +123,7 @@ export default class GraphView extends Component<{ countries: any, indicator: st
         this.graphedCountries = changed.map(countryName => {
             return data.get(countryName);
         });
-        this.chart.setState({graphedCountries: this.graphedCountries});
+        this.chart.setState({ graphedCountries: this.graphedCountries });
     }
 
     getChanged = (values) => {

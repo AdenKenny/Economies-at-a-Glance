@@ -46,42 +46,23 @@
     width:100%;
 }
 
+.graphMainFlex {
+    display: flex;
+    flex-direction: row
+}
 
-/* .selC{
-    width: 80%;
-    max-height: 200px;
+.yLabelContainer {
+    justify-content: center;
+    align-items: center;
+    width: 8%;
+    padding-left: 1%;
+    display: flex;
 }
-.col1{
-    display:flex;
-    align-content: 'center';
-    text-align: 'center';
-    height:15%;
-    margin-top:30px;
+
+.yLabel {
+    float: left;
 }
-col1::after{
-    content: "";
-      display: table;
-      clear: both;
-}
-h3{
-    width:40%;
-    margin-left: 30px;
-    padding-top:0px;
-    margin-top:0px;
-}
-.b{
-    height: 30%;
-}
-.col2{
-    align-content: 'center';
-    text-align: 'center';
-    height:33.33%;
-}
-.col3{
-    align-content: 'center';
-    text-align: 'center';
-    height:33.33%;
-} */
+
 .body{
     /* background-color: aquamarine; */
   width: 100%;

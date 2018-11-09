@@ -51,7 +51,7 @@ class NavBar extends Component<{changeValue: any, changeView: any, toggleHelp: a
                     isMap: true,
                 }
             );
-
+        
         }
     }   
 
