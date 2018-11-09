@@ -40,7 +40,7 @@ class Chart extends Component<{data, title, max}> {
 
         return (
             <div className = "graphPane">
-                <svg width={svgDimensions.width} height={svgDimensions.height} className = "theSVG">
+                <svg width={svgDimensions.width} height={svgDimensions.height} className = "chartSVG">
                     <g className="titleBox">
                         <text className="title" x={(svgDimensions.width + margins.left) / 4} y={50}>{this.props.title}</text>
                     </g>

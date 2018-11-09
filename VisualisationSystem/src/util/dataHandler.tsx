@@ -23,6 +23,7 @@ export default class DataHandler {
     }
 
     getFields = (indicator) => {
+
         switch (indicator) {
             case "pppPerCapita":
                 return {

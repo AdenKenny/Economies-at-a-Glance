@@ -9,13 +9,7 @@ import Button from "@material-ui/core/Button";
 
 import App from '../../App';
 
-class NavBar extends Component<{ changeValue: any, changeView: any, toggleHelp: any }, { isMap: boolean, isHelp: boolean }> {
-
-    private viewOptions = [
-        { value: 'Map', label: 'Map View' },
-        { value: 'Graph', label: 'Graph View' }
-    ];
-
+class NavBar extends Component<{changeValue: any, changeView: any, toggleHelp: any }, { isMap: boolean, isHelp: boolean }> {
 
     constructor(props) {
         super(props);
@@ -27,12 +21,48 @@ class NavBar extends Component<{ changeValue: any, changeView: any, toggleHelp: 
 
     }
 
+    changeView = () => {
+
+        if (this.state.isMap) {
+            this.props.changeView(
+                {
+                    value: "Graph",
+                    label: "Graph View",
+                }
+            );
+
+            this.setState(
+                {
+                    isMap: false,
+                }
+            );
+        }
+
+        else {
+            this.props.changeView(
+                {
+                    value: "Map",
+                    label: "Map View",
+                }
+            );
+
+            this.setState(
+                {
+                    isMap: true,
+                }
+            );
+        
+        }
+    }   
+
     render() {
         const indicators = this.state.isMap ? App.mapIndicators : App.graphIndicators;
         return (
             <div className="selectDiv">
-                <Select className="select" placeholder="Select View" isDisabled={this.state.isHelp} options={this.viewOptions} onChange={(val: { value: string, label: string }) => this.props.changeView(val)} />
-                <Select className="select" placeholder="Select Indicator" isDisabled={this.state.isHelp} options={indicators} onChange={(val) => this.props.changeValue(val)} />
+                <div className="switchButtonContainer"> 
+                    <Button variant="contained" color="primary" onClick={this.changeView}> Change View </Button>
+                </div>
+                <Select className="select" placeholder="PPP By Capita " isDisabled={this.state.isHelp} options={indicators} onChange={(val) => this.props.changeValue(val)} />
                 <Button variant="contained" color="primary" onClick={() => {
                     this.props.toggleHelp(!this.state.isHelp);
                     this.setState({
