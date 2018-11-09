@@ -23,7 +23,7 @@ class Chart extends Component<{data, title, max}> {
             buffer = 85 * (5 - this.props.data.length);
         }
 
-        const margins = { top: 100, right: 2 + buffer, bottom: 100, left: 148 + buffer };
+        const margins = { top: 100, right: 2 + buffer, bottom: 160, left: 148 + buffer };
         const svgDimensions = {
             width: window.screen.width * 0.6,
             height: window.screen.height * 0.5
