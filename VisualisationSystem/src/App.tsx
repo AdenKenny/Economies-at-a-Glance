@@ -7,12 +7,13 @@ import MapView from './pages/mapview/mapview';
 import GraphView from './pages/graphview/graphview';
 import logo from './logo.svg';
 import Select from 'react-select';
-import NavBar from "./components/navBar/NavBar"
+import NavBar from "./components/navBar/NavBar";
+import HelpMenu from "./components/HelpMenu/HelpMenu";
+
 import DataHandler from './util/dataHandler';
 import Help from "./pages/help/Help";
-const countryList = [];
 
-class App extends React.Component<{}, { view: any, dataLoaded: boolean, helpView: any, viewStore: any }> {
+class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLoaded: boolean, viewStore: any }> {
 
     private db: DatabaseModule;
     public static countryData: Map<string | null, any>;
@@ -37,8 +38,8 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean, helpView
         this.state = {
             view: undefined,
             dataLoaded: false,
-            helpView: <Help />,
-            viewStore: undefined
+            viewStore: undefined,
+            helpMenuOpen: false,
         };
     }
     // const data = {
@@ -142,22 +143,20 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean, helpView
     }
 
     private toggleHelp = (isHelp) => {
-        console.log(isHelp);
-        console.log(this.state);
-        //if help iis supposed to be showing then store the last view and show help
+        //if help is supposed to be showing then store the last view and show help
         if (isHelp) {
             this.setState({
                 viewStore: this.state.view,
-                view: this.state.helpView
-            })
+                helpMenuOpen : true,
+            });
 
             console.log(this.state);
         }
         //if closing help, then get last view and show it
         else {
             this.setState({                
-                view: this.state.viewStore
-            })
+                helpMenuOpen: false,
+            });
         }
     }
 
@@ -169,9 +168,15 @@ class App extends React.Component<{}, { view: any, dataLoaded: boolean, helpView
                     <h1 className="App-title">Economies at a Glance</h1>
                     <NavBar changeValue={this.changeValue} changeView={this.changeView} toggleHelp={this.toggleHelp} ref={(child) => { this.navBar = child; }} />
                 </header>
+                <div className="mainContainer">
                 {
                     this.state.dataLoaded ? this.state.view : <div></div>
                 }
+                {
+                    this.state.helpMenuOpen ? <HelpMenu> </HelpMenu>: <div> </div>
+                }    
+                </div>
+                
             </div>
         );
     }

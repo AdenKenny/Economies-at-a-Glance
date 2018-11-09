@@ -11,7 +11,7 @@ import SideMenu from "react-sidemenu";
 import "./Help.css";
 
 const toolBar = "The tool bar is broken into 3 sections, the Value drop down to the left, the View drop down in the middle, and the help button\n"
-    + "  The Value drop down changes the statistic the website shows, i.e, the GDP of certain countries\n"
+    + "  The Value drop down changes the statistic the website shows, i.e. the GDP of certain countries\n"
     + "  The View drop down changes which view is shown. It contains two options, graph view and map view"
 
 const mapView = "Map View is a map of the world in which data is shown depending on what was selected in the tool bar. There are three main functionalities that this Map View can perform\n"
