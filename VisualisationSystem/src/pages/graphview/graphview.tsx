@@ -16,17 +16,6 @@ import Country from '../../util/dataHandler';
 import ChartHandler from '../../components/ChartHandler/ChartHandler';
 import App from "../../App";
 
-const continents = [
-    { value: '2016', label: '2016' },
-    { value: '2015', label: '2015' },
-    { value: '2014', label: '2014' }
-];
-
-const view = [
-    { value: 'BG', label: 'Bar Graph' },
-    { value: 'YT', label: 'Yearly Trend' },
-];
-
 export default class GraphView extends Component<{ countries: any, indicator: string }, { indicator }> {
 
     private button: any;
@@ -35,6 +24,9 @@ export default class GraphView extends Component<{ countries: any, indicator: st
     private graphedCountries: Country[];
 
     private chart;
+
+    private xLab;
+    private yLab;
 
     constructor(props: Readonly<{ countries: any, indicator: string }>, state) {
         super(props, state);
@@ -47,8 +39,6 @@ export default class GraphView extends Component<{ countries: any, indicator: st
     }
 
     getIndicatorName = (rawInd: string): string => {
-
-        console.log(rawInd);
 
         let ind = "";
         
@@ -91,26 +81,59 @@ export default class GraphView extends Component<{ countries: any, indicator: st
         if (rawInd === "unemploymentAbsolute") {
             ind = "Unemployment (%)";
         }
-        
+
+        if (rawInd === "pppPerCapita") {
+            ind = "USD ($)";
+        }
+
+        if (rawInd === "inAgriculture") {
+            ind = "Percentage of Workforce (%)";
+        }
+
+        if (rawInd === "inIndustry") {
+            ind = "Percentage of Workforce (%)";
+        }
+
+        if (rawInd === "inServices") {
+            ind = "Percentage of Workforce (%)";
+        }
+
+        if (rawInd === "publicDebtAbsolute") {
+            ind = "Percent of GDP";
+        }
+
         return ind;
     }
 
+    componentDidMount() {
+
+        if (this.chart !== undefined) {
+            this.yLab = <div className="yLabel"><b>{this.getIndicatorName(this.state.indicator)}</b></div>
+            this.xLab = <div className="xLabel"> <b>Country</b> </div>
+        }
+
+        this.forceUpdate();
+    }
+
     render() {
+
+
         return (
             <div className="graphMainFlex">
                 <div className="yLabelContainer">
-                    <div className="yLabel">
-                        {this.getIndicatorName(this.state.indicator)}
-                    </div>
+                    {this.yLab}
                 </div>
-                <div className="body">
-                    <ChartHandler graphedCountries={this.graphedCountries} indicator={this.state.indicator} ref={(child) => this.chart = child} />
-                    <div className="infoPane">
-                        <div className="titleDiv"> <b> Country Select </b> </div>
-                        <div className="selectionDiv"><DropdownTreeSelect className="selector" data={this.countries}
-                            onChange={this.onChange} selected={this.graphedCountries} /></div>
-
-
+                <div className="bodyFlex">
+                    <div className="body">
+                        <ChartHandler graphedCountries={this.graphedCountries} indicator={this.state.indicator} ref={(child) => this.chart = child} />
+                        <div className="infoPane">
+                            <div className="titleDiv"> <b> Country Select </b> </div>
+                            <div className="selectionDiv"><DropdownTreeSelect className="selector" data={this.countries}
+                                onChange={this.onChange} selected={this.graphedCountries} /></div>
+                        </div>
+                    </div>
+                    <div className="xHolder"> 
+                        {this.xLab}
                     </div>
                 </div>
             </div>
