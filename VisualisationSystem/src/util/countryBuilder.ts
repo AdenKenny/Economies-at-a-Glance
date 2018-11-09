@@ -145,9 +145,9 @@ class CountryBuilder {
                 
                 const map: Map<string, number> = new Map<string, number>();
 
-                map["agriculture"] = this.buildGdpBySector.agriculture;
-                map["industry"] = this.buildGdpBySector.industry;
-                map["services"] = this.buildGdpBySector.services;
+                map.set("agriculture", parseInt(this.buildGdpBySector.agriculture));
+                map.set("industry", parseInt(this.buildGdpBySector.industry));
+                map.set("services", parseInt(this.buildGdpBySector.services));
 
                 this.gdpBySector = {
                     industries: map
@@ -160,9 +160,9 @@ class CountryBuilder {
 
                 const map = new Map<string, number>();
 
-                map["agriculture"] = this.buildLabourForce.by_occupation["agriculture"];
-                map["industry"] = this.buildLabourForce.by_occupation["industry"];
-                map["services"] = this.buildLabourForce.by_occupation["services"];
+                map.set("agriculture", this.buildLabourForce.by_occupation["agriculture"]);
+                map.set("industry", this.buildLabourForce.by_occupation["industry"]);
+                map.set("services", this.buildLabourForce.by_occupation["services"]);
 
                 this.labourForce = {
                     rank: this.buildLabourForce.global_rank,

@@ -24,6 +24,17 @@ export default class DataHandler {
 
     getFields = (indicator) => {
         switch (indicator) {
+            case "pppPerCapita":
+                return {
+                    title: "Purchasing Power Parity Per Capita (USD)",
+                    name: "$pppPerCapita",
+                    field: "value",
+                    needsYear: false,
+                    direction: true,
+                    prefix: '$',
+                    suffix: ''
+                };
+
             case "pppAbsolute":
                 return {
                     title: "Purchasing Power Parity (USD)",
@@ -153,7 +164,7 @@ export default class DataHandler {
                     needsYear: false,
                     direction: false,
                     prefix: '',
-                    suffix: ''
+                    suffix: '%'
                 }
 
             case "growthRateAbsolute":
@@ -177,6 +188,62 @@ export default class DataHandler {
                     prefix: '#',
                     suffix: ''
                 }
+
+            case "inAgriculture":
+                return {
+                    title: "Portion of Workforce in Agriculture (%)",
+                    name: "$labourForce",
+                    field: "agriculture",
+                    needsYear: false,
+                    direction: true,
+                    prefix: '',
+                    suffix: '%'
+                }
+            
+            case "inIndustry":
+                return {
+                    title: "Portion of Workforce in Industry (%)",
+                    name: "$labourForce",
+                    field: "industry",
+                    needsYear: false,
+                    direction: true,
+                    prefix: '',
+                    suffix: '%'
+                }
+
+            case "inServices":
+                return {
+                    title: "Portion of Workforce in Services (%)",
+                    name: "$labourForce",
+                    field: "services",
+                    needsYear: false,
+                    direction: true,
+                    prefix: '',
+                    suffix: '%'
+                }
+
+            case "publicDebtAbsolute":
+                return {
+                    title: "Public Debt (% of GDP)",
+                    name: "$publicDebt",
+                    field: "years",
+                    needsYear: true,
+                    direction: false,
+                    prefix: '',
+                    suffix: '%'
+                }
+
+            case "publicDebtRank":
+                return {
+                    title: "Public Debt (Rank)",
+                    name: "$publicDebt",
+                    field: "rank",
+                    needsYear: false,
+                    direction: true,
+                    prefix: '#',
+                    suffix: ''
+                }
+            
 
             default:
                 console.log(indicator);
