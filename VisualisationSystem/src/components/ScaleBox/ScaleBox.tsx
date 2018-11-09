@@ -12,8 +12,8 @@ class ScaleBox extends Component<{scaleLabel: string, className: string}> {
     render() {
         return(
             <div className="scaleLabel">
-                <div className="scaleLabelLabel"> {this.props.scaleLabel} </div>  
                 <div id="rectangle" className={this.props.className}> </div>
+                <div className="scaleLabelLabel"> {this.props.scaleLabel} </div>  
             </div>
         );
     }

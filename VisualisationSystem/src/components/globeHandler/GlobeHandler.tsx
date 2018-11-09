@@ -27,8 +27,8 @@ class GlobeHandler extends Component<{ indicator: string}, {countryInfo: any}> {
     
     constructor(props) {
         super(props);
-        this.state ={
-            countryInfo : ""
+        this.state = {
+            countryInfo : undefined
         }
     }
     /* Load in the abreveations to associate them with data from the database
@@ -64,34 +64,36 @@ class GlobeHandler extends Component<{ indicator: string}, {countryInfo: any}> {
 
     }
 
-    changeView = (country: string) => {
+    changeView = (abrev: string) => {
         
-        var c: any = country.toLowerCase();
-        console.log(c);
-        var countryOb = App.countryData.get(c)
+        const key = App.dataHandler.getFromAbrev(abrev);
+        const country = App.countryData.get(key);
 
         this.setState({
-            countryInfo: <CountryInfo country = {countryOb} />
+            countryInfo: <CountryInfo country = {country} />
         });
     }
 
     render() {
         const dataHandler: DataHandler = App.dataHandler;
         const countries = Array.from(App.countryData.values());
-        const fields = dataHandler.getFields(countries, this.props.indicator);
+        const fields = dataHandler.getFields(this.props.indicator);
         const unrefined = dataHandler.getData(countries, fields);
         const range = dataHandler.getRange(unrefined);
         const steps = dataHandler.getSteps(range);
         const data = dataHandler.allocate(unrefined, steps, fields);
 
-        let scaleKeys = steps.map(step => {
-            return Math.round(step).toLocaleString();
+        let scaleKeys = [];
+        
+        steps.forEach(step => {
+            scaleKeys.push(Math.round(step).toLocaleString());
         });
+
+        scaleKeys.push(Math.round(range.max).toLocaleString());
 
         if (!fields.direction) {
             scaleKeys = scaleKeys.reverse(); // Reverse to get the correct scale keys.
         }
-
         
         return (
             <div className="view">
@@ -119,7 +121,7 @@ class GlobeHandler extends Component<{ indicator: string}, {countryInfo: any}> {
                             <MapScale data={scaleKeys}/>
                         </div>
                     </div>
-                    {this.state.countryInfo != "" ? this.state.countryInfo :<div></div> }
+                    {this.state.countryInfo != undefined ? this.state.countryInfo :<div></div> }
                 </div>
             </div>
         );

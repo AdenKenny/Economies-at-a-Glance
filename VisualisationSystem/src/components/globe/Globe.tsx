@@ -54,9 +54,7 @@ class Globe extends Component<{data: any, globeHandler: GlobeHandler, changeView
 
                 done: (datamap) => {
                     datamap.svg.selectAll('.datamaps-subunit').on('click', (geography, data, data2) => {
-                        //console.log(geography.properties.name.toLowerCase())
-                        console.log(geography.properties);
-                        this.props.changeView(geography.properties.name);
+                        this.props.changeView(geography.id);
 
                     });
                 }
