@@ -18,6 +18,25 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
     private db: DatabaseModule;
     public static countryData: Map<string | null, any>;
     public static dataHandler: DataHandler;
+    public static mapIndicators;
+    public static graphIndicators;
+    
+    private indicatorOptions = [
+        [{ value: 'pppAbsolute', label: 'Purchasing Power Parity (USD)' }, true],
+        [{ value: 'pppRank', label: 'Purchasing Power Parity (Rank)' }, false],
+        [{ value: 'growthRateAbsolute', label: 'Growth Rate (%)'}, true],
+        [{ value: 'growthRateRank', label: 'Growth Rate (Rank)'}, false],
+        [{ value: 'inflationAbsolute', label: 'Inflation Rate (%)' }, true],
+        [{ value: 'inflationRank', label: 'Inflation Rate (Rank)' }, false],
+        [{ value: 'budgetRevenue', label: 'Budget Revenue (USD)'}, true],
+        [{ value: 'budgetExpenditure', label: 'Budget Expenditure (USD)'}, true],
+        [{ value: 'gini', label: 'Gini coefficient'}, true],
+        [{ value: 'populationBelow', label: 'Population Below Poverty Line (%)'}, true],
+        [{ value: 'householdIncomeTop', label: 'Household Income Share for Top 10% (%)'}, true],
+        [{ value: 'householdIncomeBottom', label: 'Household Income Share for Bottom 10% (%)'}, true],
+        [{ value: 'unemploymentAbsolute', label: 'Unemployment Rate (%)' }, true],
+        [{ value: 'unemploymentRank', label: 'Unemployment Rate (Rank)' }, false]
+    ];
 
     private graphClass: any;
 
@@ -28,12 +47,21 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
 
     private countries: any = [];
 
+    private
 
     constructor(props: any, state: any) {
         super(props, state);
         this.db = new DatabaseModule();
         App.countryData = new Map<string | null, any>();
 
+        App.mapIndicators = [];
+        App.graphIndicators = [];
+        this.indicatorOptions.forEach(indicator => {
+            App.mapIndicators.push(indicator[0]); 
+            if (indicator[1]) {
+                App.graphIndicators.push(indicator[0]);
+            }
+        });
 
         this.state = {
             view: undefined,
@@ -90,11 +118,11 @@ class App extends React.Component<{}, { view: any, helpMenuOpen: boolean, dataLo
             App.dataHandler = new DataHandler(App.countryData);
 
             if (this.mapView === undefined) {
-                this.mapView = <MapView indicator="ppp" />;
+                this.mapView = <MapView indicator="pppRank" />;
             }
 
             if (this.graphView === undefined) {
-                this.graphView = <GraphView countries={this.countries} indicator="ppp" ref={(child) => { this.graphClass = child; }} />;
+                this.graphView = <GraphView countries={this.countries} indicator="pppRank" ref={(child) => { this.graphClass = child; }} />;
             }
 
             this.setState({

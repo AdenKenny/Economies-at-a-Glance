@@ -22,7 +22,7 @@ export default class ChartHandler extends Component<{graphedCountries, indicator
             );
         }
         const dataHandler = App.dataHandler;
-        const fields = dataHandler.getFields(this.state.graphedCountries, this.props.indicator);
+        const fields = dataHandler.getFields(this.props.indicator);
         const data = dataHandler.getData(this.state.graphedCountries, fields);
         const range = dataHandler.getRange(data);
         return (

@@ -16,7 +16,7 @@ class Country {
     private inflation: { years: Map<number, number>, rank: number };
     private labourForce: { rank: number, size: number, occupations: Map<string, number> };
     private population: { total: number, rank: number };
-    private populationBelowPovertyLine: number;
+    private populationBelowPovertyLine: { percent: number };
     private ppp: { years: Map<number, number>, rank: number };
     private publicDebt: { years: Map<number, number>, rank: number };
     private savings: { years: Map<number, number>, rank: number };
@@ -34,7 +34,7 @@ class Country {
         this.inflation = builder.$inflation;
         this.labourForce = builder.$labourForce;
         this.population = builder.$population;
-        this.populationBelowPovertyLine = builder.$populationBelowPovertyLine;
+        this.populationBelowPovertyLine = { percent: builder.$populationBelowPovertyLine };
         this.ppp = builder.$ppp;
         this.publicDebt = builder.$publicDebt;
         this.savings = builder.$savings;
@@ -85,7 +85,7 @@ class Country {
         return this.population;
     }
 
-    public get $populationBelowPovertyLine(): number {
+    public get $populationBelowPovertyLine(): { percent: number } {
         return this.populationBelowPovertyLine;
     }
 
