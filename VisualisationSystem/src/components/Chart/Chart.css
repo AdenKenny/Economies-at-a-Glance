@@ -7,9 +7,14 @@
     text-anchor: middle;
 }
 
+.titleBox {
+    float: left;
+}
+
 .title {
-    text-anchor: middle;
+    text-align: left;
     font-size: 2em;
+    float: left;
 }
 .filler{
     width:75%;

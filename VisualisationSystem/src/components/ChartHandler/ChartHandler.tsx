@@ -26,7 +26,7 @@ export default class ChartHandler extends Component<{graphedCountries, indicator
         const data = dataHandler.getData(this.state.graphedCountries, fields);
         const range = dataHandler.getRange(data);
         return (
-            <Chart data={data} max={range.max}/>
+            <Chart data={data} title={fields.title} max={range.max}/>
         );
     }
 

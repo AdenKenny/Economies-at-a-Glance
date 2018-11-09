@@ -1,3 +1,15 @@
+.view {
+    display: block;
+}
+.title {
+    margin-top: 15px;
+    margin-left: 25%;
+    float: left;
+    width: 100%;
+    font-size: 20px;
+    text-align: left;
+}
+
 .globe {
     padding-left: 5%;
 }

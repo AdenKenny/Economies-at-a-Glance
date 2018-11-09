@@ -5,7 +5,7 @@ import Axes from '../Axes/Axes';
 import Bars from '../Bars/Bars';
 import './Chart.css';
 
-class Chart extends Component<{data, max}> {
+class Chart extends Component<{data, title, max}> {
     
     private xScale;
     private yScale;
@@ -41,8 +41,8 @@ class Chart extends Component<{data, max}> {
         return (
             <div className = "graphPane">
                 <svg width={svgDimensions.width} height={svgDimensions.height} className = "theSVG">
-                    <g>
-                        <text className="title" x={(svgDimensions.width + margins.left) / 2} y={50}>Title</text>
+                    <g className="titleBox">
+                        <text className="title" x={(svgDimensions.width + margins.left) / 4} y={50}>{this.props.title}</text>
                     </g>
                     <Axes
                         scales={{ xScale, yScale }}

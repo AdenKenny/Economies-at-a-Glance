@@ -17,6 +17,7 @@ export default class DataHandler {
         switch (indicator) {
             case "ppp":
                 return {
+                    title: "Purchasing Power Parity",
                     name: "$ppp",
                     field: "years",
                     needsYear: true,
@@ -27,6 +28,7 @@ export default class DataHandler {
 
             case "unemploymentAbsolute":
                 return {
+                    title: "Unemployment Rate",
                     name: "$unemployment",
                     field: "years",
                     needsYear: true,
@@ -37,6 +39,7 @@ export default class DataHandler {
 
             case "unemploymentRank":
                 return {
+                    title: "Unemployment by World Ranking",
                     name: "$unemployment",
                     field: "rank",
                     needsYear: false,
@@ -47,6 +50,7 @@ export default class DataHandler {
 
             case "inflationRank":
                 return {
+                    title: "Inflation by World Ranking",
                     name: "$inflation",
                     field: "rank",
                     needsYear: false,
@@ -57,6 +61,7 @@ export default class DataHandler {
 
             case "inflationAbsolute":
                 return {
+                    title: "Inflation Rate",
                     name: "$inflation",
                     field: "years",
                     needsYear: true,

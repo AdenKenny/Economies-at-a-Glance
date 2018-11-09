@@ -94,30 +94,33 @@ class GlobeHandler extends Component<{ indicator: string}, {countryInfo: any}> {
 
         
         return (
-            <div className="flexContainer">
-                <div className="sideFlexContainer">
-                    <div className="zoomButtonContainer">
-                        <ZoomButton onClick={this.zoomIn} text="Zoom In"> </ZoomButton>
-                        <ZoomButton onClick={this.zoomOut} text="Zoom Out"> </ZoomButton>
-                        <ZoomButton onClick={this.resetZoom} text="Reset Zoom"> </ZoomButton>
-                    </div>
-                    <div> 
-                        <DirectionButton text="↑" x={500} y={0}> </DirectionButton>
-                        <DirectionButton text="↓" x={500} y={0}> </DirectionButton>
-                        <DirectionButton text="←" x={500} y={0}> </DirectionButton>
-                        <DirectionButton text="→" x={500} y={0}> </DirectionButton>
+            <div className="view">
+                <span className="title">{fields.title}</span>
+                <div className="flexContainer">
+                    <div className="sideFlexContainer">
+                        <div className="zoomButtonContainer">
+                            <ZoomButton onClick={this.zoomIn} text="Zoom In"> </ZoomButton>
+                            <ZoomButton onClick={this.zoomOut} text="Zoom Out"> </ZoomButton>
+                            <ZoomButton onClick={this.resetZoom} text="Reset Zoom"> </ZoomButton>
+                        </div>
+                        <div> 
+                            <DirectionButton text="↑" x={500} y={0}> </DirectionButton>
+                            <DirectionButton text="↓" x={500} y={0}> </DirectionButton>
+                            <DirectionButton text="←" x={500} y={0}> </DirectionButton>
+                            <DirectionButton text="→" x={500} y={0}> </DirectionButton>
 
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <div className="globe">   
-                        <Globe data={data} globeHandler={this} changeView ={this.changeView}/>
+                    <div>
+                        <div className="globe">   
+                            <Globe data={data} globeHandler={this} changeView ={this.changeView}/>
+                        </div>
+                        <div className="scaleKeysBox">
+                            <MapScale data={scaleKeys}/>
+                        </div>
                     </div>
-                    <div className="scaleKeysBox">
-                        <MapScale data={scaleKeys}/>
-                    </div>
-                </div>
                     {this.state.countryInfo != "" ? this.state.countryInfo :<div></div> }
+                </div>
             </div>
         );
 
