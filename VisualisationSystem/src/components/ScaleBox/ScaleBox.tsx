@@ -5,7 +5,7 @@ import "./ScaleBox.css";
 
 class ScaleBox extends Component<{scaleLabel: string, className: string}> {
 
-    constructor(props) {
+    constructor(props: {scaleLabel: string, className: string}) {
         super(props);
     }
 

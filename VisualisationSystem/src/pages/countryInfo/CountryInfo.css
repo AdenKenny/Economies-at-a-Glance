@@ -1,0 +1,16 @@
+.info{
+    width: 50%;
+    border: 1px solid black;
+    height: 100%;
+    align-content: center;
+    display: flex; 
+}
+.ui celled table{
+    background-color: blue;
+}
+tr{
+    background-color: blue;
+}
+.tableBody{
+    background-color: blue;
+}

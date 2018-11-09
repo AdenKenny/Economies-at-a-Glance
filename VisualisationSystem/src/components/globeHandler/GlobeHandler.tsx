@@ -7,15 +7,30 @@ import { Component } from 'react';
 import Globe from "../globe/Globe";
 import App from "../../App";
 import MapScale from "../MapScale/MapScale";
+import CountryView from "../../pages/countryInfo/CountryInfo";
 
-class GlobeHandler extends Component<{ indicator: string }> {
+import "./GlobeHandler.css";
+import DataHandler from "src/util/dataHandler";
+import ZoomButton from "../ZoomButton/ZoomButton";
+import { Button } from "@material-ui/core";
+import DirectionButton from "../DirectionButton/DirectionButton";
+import CountryInfo from "../../pages/countryInfo/CountryInfo";
+
+class GlobeHandler extends Component<{ indicator: string}, {countryInfo: any}> {
 
     private abrevToCountry = {};
 
+    zoomInF: () => void;
+    zoomOutF: () => void;
+    zoomResetF: () => void;
+    panF: (x: number, y: number) => void;
+    
     constructor(props) {
         super(props);
+        this.state ={
+            countryInfo : ""
+        }
     }
-
     /* Load in the abreveations to associate them with data from the database
         This allows the association of indicators to the countries on the map.
     */
@@ -29,8 +44,39 @@ class GlobeHandler extends Component<{ indicator: string }> {
         });
     }
 
+    zoomIn = (): void => {
+        this.zoomInF();
+    }
+
+    zoomOut = (): void => {
+        this.zoomOutF();
+    }
+
+    resetZoom = (): void => {
+        this.zoomResetF();
+    }
+
+    pan = (x: number, y: number): void => {
+        this.panF(x, y);
+    }
+
+    handleChange = () => {
+
+    }
+
+    changeView = (country: string) => {
+        
+        var c: any = country.toLowerCase();
+        console.log(c);
+        var countryOb = App.countryData.get(c)
+
+        this.setState({
+            countryInfo: <CountryInfo country = {countryOb} />
+        });
+    }
+
     render() {
-        const dataHandler = App.dataHandler;
+        const dataHandler: DataHandler = App.dataHandler;
         const countries = Array.from(App.countryData.values());
         const fields = dataHandler.getFields(countries, this.props.indicator);
         const unrefined = dataHandler.getData(countries, fields);
@@ -41,15 +87,40 @@ class GlobeHandler extends Component<{ indicator: string }> {
         let scaleKeys = steps.map(step => {
             return Math.round(step).toLocaleString();
         });
+
         if (!fields.direction) {
             scaleKeys = scaleKeys.reverse(); // Reverse to get the correct scale keys.
         }
 
-
+        
         return (
-            <div>
-                <Globe data={data}> </Globe>
-                <MapScale data={scaleKeys}> </MapScale>
+            <div className="view">
+                <span className="title">{fields.title}</span>
+                <div className="flexContainer">
+                    <div className="sideFlexContainer">
+                        <div className="zoomButtonContainer">
+                            <ZoomButton onClick={this.zoomIn} text="Zoom In"> </ZoomButton>
+                            <ZoomButton onClick={this.zoomOut} text="Zoom Out"> </ZoomButton>
+                            <ZoomButton onClick={this.resetZoom} text="Reset Zoom"> </ZoomButton>
+                        </div>
+                        <div> 
+                            <DirectionButton text="↑" x={500} y={0}> </DirectionButton>
+                            <DirectionButton text="↓" x={500} y={0}> </DirectionButton>
+                            <DirectionButton text="←" x={500} y={0}> </DirectionButton>
+                            <DirectionButton text="→" x={500} y={0}> </DirectionButton>
+
+                        </div>
+                    </div>
+                    <div>
+                        <div className="globe">   
+                            <Globe data={data} globeHandler={this} changeView ={this.changeView}/>
+                        </div>
+                        <div className="scaleKeysBox">
+                            <MapScale data={scaleKeys}/>
+                        </div>
+                    </div>
+                    {this.state.countryInfo != "" ? this.state.countryInfo :<div></div> }
+                </div>
             </div>
         );
 

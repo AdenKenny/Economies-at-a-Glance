@@ -1,0 +1,19 @@
+.Side-menu {
+    background-color: #ABABAB;
+	font-weight: 600;
+	width :20%;
+	height:100%;
+} 
+	
+
+.Side-menu-custom .item {
+		background-color: #CCC;
+}
+.Side-menu-custom .item-level-1 .item-label { 
+			font-style: italic;
+		}
+
+ .Side-menu-custom.item-level-2 .item-label {
+			font-size: 10px;
+		}
+	
