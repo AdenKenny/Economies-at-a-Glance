@@ -23,9 +23,11 @@
 
 .selectionDiv{
     width: 100%;
-    height:87.5%;
+    height: 350px;
     overflow-y: auto;
     overflow-x:hidden;
+    margin-top: 10%;
+    margin-left: -10%;
 
     text-align: left;
     display:flex;
@@ -83,7 +85,7 @@ h3{
 .body{
     /* background-color: aquamarine; */
   width: 100%;
-  height:750px;
+  height: 90%;
   display: flex;
   /* background-color: firebrick; */
 }
