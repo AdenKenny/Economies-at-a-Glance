@@ -1,31 +1,13 @@
 
-<i> Economies at a Glance </i> is a website that allows you, the user, to compare the economies of all the countries around the world.
+<i> Economies at a Glance </i> is a website that allows the comparison of the economies of all the countries in the world. The data displayed is scraped from the [CIA World Factbook](https://www.cia.gov/library/publications/the-world-factbook/).
 
 **Directions**
 
-$ cd SWAG
-
+``` 
 $ cd VisualisationSystem
 
 $ yarn install
 
 $ yarn start
-
-Code at - https://gitlab.ecs.vuw.ac.nz/swen422-2018-a2/t4/SWAG 
-
- ** **
-
-Testing Branch at - https://gitlab.ecs.vuw.ac.nz/swen422-2018-a2/t4/SWAG/tree/testing 
-
-To launch the testing branch:
-
-$ cd SWAG
-
-$ cd VisualisationSystem
-
-$ yarn install
-
-$ yarn test
-
- ** **
+```
 
